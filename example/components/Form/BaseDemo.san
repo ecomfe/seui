@@ -1,0 +1,148 @@
+<template>
+    <div class="demo-section">
+        <h3>FormItem基本样式演示</h3>
+        <ui-form-item>
+            <template slot="label">123</template>
+            <ui-checkbox-group
+                showAll="{{true}}"
+                items="{{items}}"
+                value="{=fruit=}"
+            ></ui-checkbox-group>
+        </ui-form-item>
+        <ui-form-item
+            require
+            helpText="提示信息的效果"
+            label="水果左对">
+            <ui-checkbox-group
+                showAll="{{true}}"
+                items="{{items}}"
+                value="{=fruit=}"
+            ></ui-checkbox-group>
+        </ui-form-item>
+        <ui-form-item
+            error="错误信息的效果"
+            label="水果左对齐">
+            <ui-checkbox-group
+                showAll="{{true}}"
+                items="{{items}}"
+                value="{=fruit=}"
+            ></ui-checkbox-group>
+        </ui-form-item>
+
+        <h3>改变控件大小</h3>
+        <ui-form-item
+            label="默认"><ui-input></ui-input><span slot="success">开始先给一个success信息</span></ui-form-item>
+         <ui-form-item
+            error="空tip会让提示信息换行"
+            label="默认"><ui-input></ui-input><span slot="tip"></span></ui-form-item>
+        <ui-form-item
+            error="错误信息默认和控件在同一行"
+            ui="large"
+            label="大号"><ui-input ui="large"></ui-input></ui-form-item>
+         <ui-form-item
+            error="错误信息的效果"
+            ui="small"
+            label="小号"><ui-input ui="small"></ui-input><span slot="tip">这个slot可以放按钮哦</span></ui-form-item>
+        <ui-form-item
+            error="bottom-info属性"
+            ui="tiny"
+            label="微小"><ui-input ui="tiny"></ui-input>
+            <ui-button slot="tip" ui="primary tiny">打开</ui-button>
+        </ui-form-item>
+        <ui-form-item
+            error="错误信息的效果"
+            ui="micro"
+            label="极小"><ui-input ui="micro"></ui-input>
+        </ui-form-item>
+        <h3>行内表单</h3>
+        <ui-form ui="inline">
+            <ui-form-item
+            error="错误信息的效果"
+            label="行内："><ui-input></ui-input></ui-form-item>
+            <ui-form-item
+            error="错误信息的效果"
+            label="行内："><ui-input></ui-input></ui-form-item>
+        </ui-form>
+    </div>
+</template>
+
+<script>
+import Form from '../../../src/components/Form';
+import FormItem from '../../../src/components/FormItem';
+import CheckboxGroup from '../../../src/components/CheckboxGroup';
+import Input from '../../../src/components/Input';
+import Button from '../../../src/components/Button';
+export default {
+    components: {
+        'ui-button': Button,
+        'ui-form': Form,
+        'ui-form-item': FormItem,
+        'ui-checkbox-group': CheckboxGroup,
+        'ui-input': Input
+    },
+
+    trimWhiteSpace: 'all',
+
+    initData() {
+        return {
+            fruit: [],
+            items: [
+                {
+                    value: '1',
+                    label: '苹果'
+                },
+                {
+                    value: '2',
+                    label: '梨'
+                },
+                {
+                    value: '3',
+                    label: '香蕉'
+                },
+                {
+                    value: '4',
+                    label: '奇异果'
+                },
+                {
+                    value: '5',
+                    label: '橘子'
+                },
+                {
+                    value: '6',
+                    label: '苹果'
+                },
+                {
+                    value: '7',
+                    label: '牛油果'
+                },
+                {
+                    value: '8',
+                    label: '西瓜'
+                }
+            ],
+            rules2: [
+                {
+                    triggers: 'blur',
+                    validator(rule, value, callback) {
+                        if (!value || value.length <= 2) {
+                            setTimeout(function() {
+                                callback([new Error('不要输入非法字符')]);
+                            }, 1000);
+                        }
+                        else {
+                            setTimeout(function() {
+                                callback([]);
+                            }, 1000);
+                        }
+                    }
+                }
+            ]
+        };
+    }
+}
+</script>
+<style lang="stylus">
+.dux-form-item {
+    margin-bottom: 30px;
+}
+</style>

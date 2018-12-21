@@ -1,0 +1,113 @@
+<template>
+    <div class="demo-Pager">
+        <h2>四种版式</h2>
+        <div class="demo">
+            <p>
+                <ui-pager
+                    page="{{current}}"
+                    total="{{total}}"
+                    page-size="{{pageSize}}"
+                    on-redirect="handlePagerChange($event)" />
+            </p>
+            <p>
+                <ui-pager
+                    ui="micro"
+                    page="{{current}}"
+                    total="{{total}}"
+                    page-size="{{pageSize}}"
+                    on-redirect="handlePagerChange($event)" />
+            </p>
+        </div>
+        <div class="demo">
+            <p>
+                <ui-pager
+                    ui="hetero"
+                    page="{{current}}"
+                    total="{{total}}"
+                    page-size="{{pageSize}}"
+                    on-redirect="handlePagerChange($event)" />
+            </p>
+        </div>
+        <div class="demo">
+            <p>
+                <ui-pager
+                    ui="full"
+                    page="{{current}}"
+                    total="{{total}}"
+                    page-size="{{secPageSize}}"
+                    page-sizes="{{pageSizeOpts}}"
+                    on-redirect="handlePagerChange($event)"
+                    on-pagesizechange="handlePageSizeChange($event)" />
+            </p>
+            <p>
+                <ui-pager
+                    ui="hetero"
+                    page="{{current}}"
+                    total="{{total}}"
+                    page-size="{{secPageSize}}"
+                    show-total="{{showTotal}}"
+                    show-size-changer="{{showSizeChanger}}"
+                    page-sizes="{{pageSizeOpts}}"
+                    on-redirect="handlePagerChange($event)"
+                    on-pagesizechange="handlePageSizeChange($event)" />
+            </p>
+            <p>
+                <ui-pager
+                    page="{{current}}"
+                    total="{{total}}"
+                    page-size="{{pageSize}}"
+                    show-total="{{showTotal}}"
+                    on-redirect="handlePagerChange($event)" />
+            </p>
+        </div>
+        <div class="demo">
+            <p>
+                <ui-pager
+                    page="{{current}}"
+                    total="{{total}}"
+                    page-size="{{pageSize}}"
+                    prev-page-text="上一页"
+                    next-page-text="下一页"
+                    on-redirect="handlePagerChange($event)" />
+            </p>
+        </div>
+
+        <h2>没有数据时</h2>
+        <p>
+            <ui-pager />
+        </p>
+    </div>
+</template>
+
+<script>
+import Pager from '../../src/components/Pager';
+
+export default {
+    components: {
+        'ui-pager': Pager
+    },
+    initData() {
+        return {
+            current: 1,
+            pageSize: 30,
+            secPageSize: 30,
+            pageSizeOpts: [30, 60, 100, 200],
+            total: 10101,
+            showTotal: true,
+            showSizeChanger: true
+        };
+    },
+    handlePagerChange({page, event}) {
+        this.data.set('current', page);
+    },
+    handlePageSizeChange(pageSize) {
+        this.data.set('secPageSize', pageSize);
+    }
+}
+</script>
+
+<style lang="less">
+.demo {
+    margin-bottom: 70px;
+}
+</style>

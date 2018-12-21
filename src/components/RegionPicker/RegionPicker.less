@@ -1,0 +1,119 @@
+@import (reference) "../../style/lib.less";
+
+.@{class-prefix}-region-picker {
+    @item-width: 116px;
+    @r-border: 1px solid @dux-gray-color-5;
+
+    &-section:first-child {
+        border-top: none;
+    }
+
+    &-section {
+        border-top: @r-border;
+
+        &-title {
+            height: 40px;
+            line-height: 40px;
+            padding-left: 20px;
+        }
+
+        &-content:before,
+        &-content:after {
+            box-sizing: border-box;
+        }
+    }
+
+    &-branch {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        padding-left: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        &-title {
+            flex-grow: 0;
+            flex-shrink: 0;
+            width: @item-width;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+
+    &-group {
+        float: left;
+
+        &-title {
+            padding: 0 0 0 8px;
+            width: 108px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            .title-wrp {
+                display: inline-block;
+            }
+        }
+
+        &-shadow {
+            border: @r-border;
+            border-bottom: none;
+            padding-left: 8px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-right: 8px;
+            background-color: #fff;
+            box-shadow: 0 1px 4px @dux-gray-color-5;
+            position: relative;
+            .count {
+                color: @dux-gray-color-2;
+            }
+
+            &::before {
+                content: "";
+                display: block;
+                position: absolute;
+                bottom: -5px;
+                left: 0px;
+                width: 100%;
+                height: 10px;
+                background-color: #fff;
+            }
+        }
+    }
+
+    &-units {
+        border: @r-border;
+        box-shadow: 0 1px 4px @dux-gray-color-5;
+        background-color: #fff;
+    }
+
+    &-unit {
+        display: flex;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 8px;
+        padding-right: 20px;
+
+        &:first-child {
+            padding-left: 20px;
+        }
+
+    }
+
+    &-row {
+        box-sizing: border-box;
+        display: flex;
+        flex-wrap: nowrap;
+        &:first-child > div {
+            padding-top: 20px;
+        }
+
+        &:last-child > div {
+            padding-bottom: 20px;
+        }
+    }
+
+    &-unit-item {
+        display: flex;
+        align-items: center;
+    }
+}

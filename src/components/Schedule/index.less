@@ -1,0 +1,204 @@
+@import (reference) "../../style/lib.less";
+
+.@{class-prefix}-schedule {
+    width: 653px;
+    border: 1px solid @dux-gray-color-5;
+
+    &-header {
+        overflow: hidden;
+        padding: 10px 20px;
+        font-size: @dux-font-size-small;
+        line-height: 24px;
+    }
+
+    &-header {
+        border-bottom: 1px solid @dux-gray-color-5;
+    }
+
+    &-shortcuts {
+        float: left;
+    }
+
+    &-shortcut {
+        height: 24px;
+        margin-left: 10px;
+        padding: 0 10px;
+        border: none;
+        background-color: transparent;
+        color: @dux-text-color-normal;
+        outline: none;
+        .dux-button-transition();
+
+        &:first-child {
+            margin-left: -10px;
+        }
+
+        &-selected {
+            background-color: @dux-gray-color-7;
+            color: @dux-text-color-strong;
+        }
+    }
+
+    &-legend {
+        float: right;
+
+        &-item {
+            margin-left: 20px;
+            color: @dux-text-color-weak;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            &::before {
+                content: "";
+                display: inline-block;
+                margin-right: 8px;
+                .size(8px);
+            }
+        }
+
+        &-available::before {
+            border: 1px solid @dux-gray-color-5;
+            background-color: #fff;
+        }
+
+        &-selected::before {
+            background-color: @dux-brand-color-8;
+        }
+    }
+
+    &-body {
+        .clearfix();
+        padding: 20px 10px 20px 20px;
+        background-color: @dux-gray-color-8;
+    }
+
+    &-head {
+        &-hour {
+            float: right;
+            color: @dux-text-color-weak;
+            margin-bottom: 10px;
+            font-size: @dux-font-size-small;
+
+            &-item {
+                float: left;
+                .size(46px, 12px);
+                text-align: center;
+            }
+        }
+
+        &-day {
+            float: left;
+            clear: right;
+            margin-right: 10px;
+            color: @dux-text-color-weak;
+
+            &-item {
+                line-height: 23px;
+
+                .@{class-prefix}-checkbox[ui~="small"] {
+                    .dux-checkbox {
+                        &-box {
+                            margin-right: 10px;
+                        }
+
+                        &-label {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &-detail {
+        position: relative;
+        float: left;
+    }
+
+    &-table {
+        table-layout: fixed;
+        border-collapse: collapse;
+        cursor: pointer;
+
+        col {
+            width: 23px;
+        }
+
+        td {
+            height: 23px;
+            padding: 0;
+            text-align: center;
+        }
+
+        &-interaction {
+            button {
+                .absolute(0, _, _, 0);
+                .size(22px);
+                border: none;
+                background-color: currentColor;
+                color: #fff;
+                outline: none;
+                .dux-button-transition();
+
+                &:hover,
+                &.focus-ring {
+                    color: @dux-brand-color-10;
+                }
+
+                &:hover:active,
+                &.@{class-prefix}-schedule-selected {
+                    color: @dux-brand-color-8;
+                }
+
+                &.@{class-prefix}-schedule-selected {
+                    &:hover,
+                    &.focus-ring {
+                        color: @dux-brand-color-7;
+                    }
+
+                    &:hover:active {
+                        color: @dux-brand-color-6;
+                    }
+                }
+
+                &::after {
+                    // for browsers lacking `pointer-events` support
+                    content: "";
+                    .absolute(0, _, _, 0);
+                    width: 23px;
+                    height: 23px;
+                    z-index: 1;
+                    background-color: #fff;
+                    opacity: .001;
+                }
+            }
+
+            td {
+                position: relative;
+                border: 1px solid @dux-gray-color-6;
+
+                &.@{class-prefix}-schedule-selected + .@{class-prefix}-schedule-selected button::before {
+                    content: "";
+                    .absolute(0, _, _, -1px);
+                    .size(1px, 22px);
+                    background-color: currentColor;
+                }
+            }
+        }
+
+        &-selected {
+            pointer-events: none; // for Firefox
+            .absolute(0, _, _, 0);
+            font-size: @dux-font-size-small;
+            color: @dux-text-color-normal;
+
+            td {
+                padding-top: 1px;
+                border-color: transparent;
+                white-space: nowrap;
+            }
+        }
+    }
+}

@@ -1,0 +1,92 @@
+@import (reference) "../../style/lib.less";
+@pager-prefix-cls: ~"@{class-prefix}-pager";
+
+.@{pager-prefix-cls} {
+    color: @dux-gray-color-2;
+    &:after {
+        content: '';
+        display: block;
+        height: 0;
+        clear: both;
+        overflow: hidden;
+        visibility: hidden;
+    }
+    &-total {
+        display: inline-block;
+    }
+
+    &-size {
+        display: inline-block;
+        margin-left: 20px;
+        margin-right: 10px;
+    }
+
+    .@{class-prefix}-select {
+        min-width: 70px;
+        margin-left: 8px;
+    }
+
+    &-switch {
+        display: inline-block;
+        padding: 0 36px;
+        padding-left: 0;
+        font-size: 0;
+        vertical-align: middle;
+    }
+
+    &-buttons-prev,
+    &-buttons-next {
+        display: inline-block;
+        text-align: center;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    &-buttons-prev {
+        margin-right: 6px;
+    }
+
+    &-buttons-next {
+        margin-left: 6px;
+    }
+
+    &[ui~="hetero"] & {
+        &-buttons-prev {
+            margin-left: 6px;
+            margin-right: 0;
+        }
+    }
+
+    .make-square(@size) {
+        width: @size;
+        height: @size;
+        line-height: @size;
+    }
+
+    &-item,
+    &-item-jump-buttons {
+        display: inline-block;
+        .make-square(@dux-height-small);
+        font-size: @dux-font-size-normal;
+        text-align: center;
+        cursor: pointer;
+        vertical-align: middle;
+    }
+
+    &[ui~="micro"] & {
+        &-item,
+        &-item-jump-buttons {
+            .make-square(@dux-height-micro);
+            font-size: @dux-font-size-small;
+        }
+    }
+
+    &-item {
+        position: relative;
+
+        &-active {
+            background-color: @dux-gray-color-7;
+            color: @dux-gray-color-1;
+        }
+    }
+}

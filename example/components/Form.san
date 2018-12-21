@@ -1,0 +1,40 @@
+<template>
+    <div>
+        <ui-basedemo></ui-basedemo>
+        <ui-validatedemo></ui-validatedemo>
+        <ui-unionvalidatedemo></ui-unionvalidatedemo>
+        <ui-fullformdemo></ui-fullformdemo>
+        <ui-formarea></ui-formarea>
+    </div>
+</template>
+
+<script>
+import BaseDemo from './Form/BaseDemo';
+import ValidateDemo from './Form/ValidateDemo';
+import UnionValidateDemo from './Form/UnionValidateDemo';
+import FullFormDemo from './Form/FullFormDemo';
+import FormAreaDemo from './Form/FormAreaDemo';
+
+export default {
+    components: {
+        'ui-basedemo': BaseDemo,
+        'ui-validatedemo': ValidateDemo,
+        'ui-unionvalidatedemo': UnionValidateDemo,
+        'ui-fullformdemo': FullFormDemo,
+        'ui-formarea': FormAreaDemo
+    }
+}
+</script>
+
+<style lang='less'>
+
+    .submit-button {
+        margin-right: 40px;
+    }
+
+
+    .demo-item{
+        margin-top: 20px;
+    }
+</style>
+

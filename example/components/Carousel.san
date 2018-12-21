@@ -1,0 +1,98 @@
+<template>
+    <div>
+        <p><code>index</code>: <ui-input-number type="number" value="{= localIndex =}" min="{{0}}" max="{{items.length - 1}}"></ui-input-number></p>
+        <p><code>interval</code>: <ui-input-number type="number" value="{= interval =}" min="{{0}}"></ui-input-number></p>
+        <p><ui-checkbox checked="{= looseCheck =}"><code>ui="loose"</code></ui-checkbox></p>
+        <p><ui-checkbox checked="{= autoplay =}"><code>autoplay</code></ui-checkbox></p>
+        <p><ui-checkbox checked="{= wrap =}"><code>wrap</code></ui-checkbox></p>
+        <p><ui-checkbox checked="{= pauseOnHover =}"><code>pause-on-hover</code></ui-checkbox></p>
+        <p><ui-radio-group value="{= trigger =}" items="{{triggers}}"></ui-radio-group></p>
+        <p><ui-radio-group value="{= size =}" items="{{sizes}}"></ui-radio-group></p>
+        <p><ui-radio-group value="{= indicator =}" items="{{indicators}}"></ui-radio-group></p>
+        <ui-carousel
+            ui="{{ui}}"
+            localIndex="{{localIndex}}"
+            interval="{{interval}}"
+            datasource="{{items}}"
+            autoplay="{{autoplay}}"
+            pauseOnHover="{{pauseOnHover}}"
+            wrap="{{wrap}}"
+            trigger="{{trigger}}"
+            indicator="{{indicator}}">
+        </ui-carousel>
+    </div>
+    
+</template>
+
+<script>
+    
+    import Carousel from '../../src/components/Carousel/Carousel';
+    import '../../src/components/Carousel/index.less';
+
+    import Checkbox from '../../src/components/Checkbox/Checkbox';
+    import '../../src/components/Checkbox/index.less';
+
+    import RadioGroup from '../../src/components/RadioGroup/RadioGroup';
+    import '../../src/components/RadioGroup/index.less';
+
+    import InputNum from '../../src/components/InputNumber/InputNumber';
+    import '../../src/components/InputNumber/index.less';
+
+    export default {
+        components: {
+            'ui-carousel': Carousel,
+            'ui-checkbox': Checkbox,
+            'ui-radio-group': RadioGroup,
+            'ui-input-number': InputNum
+        },
+        initData() {
+            return {
+                items: [
+                  {
+                    src: 'http://image.cc0.cn/uploadfile/2017/0612/thumb_1440_0_20170612110044186.jpg',
+                    alt: 'Highway'
+                  },
+                  {
+                    src: 'http://image.cc0.cn/uploadfile/2017/0621/thumb_1440_0_20170621121923346.jpg',
+                    alt: 'City'
+                  },
+                  {
+                    src: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png',
+                    alt: 'Baidu logo'
+                  }
+                ],
+                localIndex: 0,
+                interval: 3000,
+                trigger: 'hover',
+                triggers: [
+                    { value: 'hover', label: 'hover' },
+                    { value: 'click', label: 'click' }
+                ],
+                size: 'normal',
+                sizes: [
+                    { value: 'small', label: 'small' },
+                    { value: 'normal', label: 'normal' },
+                    { value: 'large', label: 'large' }
+                ],
+                indicator: 'radio',
+                indicators: [
+                    { value: 'radio', label: 'radio' },
+                    { value: 'number', label: 'number' },
+                    { value: 'tab', label: 'tab' },
+                    { value: 'none', label: 'none' }
+                ],
+                looseCheck: true,
+                autoplay: true,
+                pauseOnHover: true,
+                wrap: true
+            }
+        },
+        computed: {
+            ui() {
+                let loose = this.data.get('looseCheck') ? 'loose' : '';
+                let size = this.data.get('size');
+                return [loose, size].join(' ');
+            }
+        }
+    }
+</script>

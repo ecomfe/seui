@@ -1,0 +1,118 @@
+@import (reference) "../../style/lib.less";
+
+.@{class-prefix}-radio {
+    display: inline-block;
+    color: @dux-text-color-normal;
+    font-size: @dux-font-size-normal;
+    line-height: @dux-font-size-large;
+    cursor: pointer;
+
+    input {
+        position: absolute;
+        opacity: 0;
+    }
+    .@{class-prefix}-icon {
+        display: none;
+    }
+
+    &-label,
+    &-box {
+        vertical-align: top;
+        display: inline-block;
+        transition: color @dux-transition-duration;
+    }
+
+    .@{class-prefix}-form-item-content > & {
+        line-height: @dux-height-normal;
+
+        .@{class-prefix}-radio-box {
+            vertical-align: text-top;
+        }
+    }
+
+    & .focus-visible ~ &-box,
+    & .focus-visible ~ &-label,
+    &:hover {
+        color: @dux-text-color-strong;
+    }
+
+    & .focus-visible ~ &-box {
+        box-shadow: 0 0 0 2px @dux-gray-color-5;
+    }
+
+    &-box {
+        position: relative;
+        height: @dux-font-size-large;
+        width: @dux-font-size-large;
+        border: 1px solid @dux-gray-color-2;
+        background-color: #fff;
+        margin-right: 8px;
+        border-radius: 50%;
+        font-size: @dux-font-size-normal;
+        transition: box-shadow @dux-transition-duration;
+        &::before {
+            content: "";
+            display: block;
+            .size(@dux-font-size-large);
+            background-color: @dux-gray-color-1;
+            border-radius: 50%;
+            .absolute(50%, 50%);
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform @dux-transition-duration;
+        }
+    }
+
+    &:hover &-box {
+        border-color: @dux-gray-color-1;
+    }
+
+    & :checked + &-box {
+        border-color: @dux-gray-color-1;
+
+        &::before {
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+    }
+
+    &-disabled {
+        cursor: not-allowed;
+
+        .@{class-prefix}-radio-label {
+            color: @dux-text-color-weak;
+        }
+    }
+
+    & :disabled + &-box {
+        border-color: @dux-gray-color-5;
+        background-color: @dux-gray-color-7;
+    
+        &::before {
+            background-color: @dux-gray-color-5;
+        }
+    }
+
+    &[ui~="small"] {
+        font-size: @dux-font-size-small;
+        line-height: @dux-font-size-small;
+    }
+    
+    .@{class-prefix}-form-item[ui~="small"] > &[ui~="small"] {
+        line-height: @dux-height-small;
+
+        .veui-radio-box {
+            vertical-align: -2px;
+        }
+    }
+    
+    &[ui~="small"] &-box {
+        margin-right: 6px;
+        font-size: @dux-font-size-small;
+        height: @dux-font-size-small;
+        width: @dux-font-size-small;
+    
+        &::before {
+            .size(@dux-font-size-small);
+        }
+    }
+}
+

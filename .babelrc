@@ -1,0 +1,55 @@
+{
+    "presets": [
+        [
+            "env", {
+                "targets": {
+                    "browsers": ["last 2 versions"]
+                },
+                "modules": false
+            }
+        ]
+    ],
+    "plugins": [
+        "transform-class-properties",
+        "transform-object-rest-spread",
+        "lodash"
+    ],
+    "env": {
+        "dev": {
+            "presets": [
+                [
+                    "env", {
+                        "targets": {
+                            "browsers": ["last 2 versions"]
+                        },
+                        "modules": false
+                    }
+                ]
+            ],
+            "plugins": [
+                "transform-class-properties",
+                "transform-object-rest-spread",
+                "lodash"
+            ]
+        },
+        "production": {
+            "presets": [
+                [
+                    "env", {
+                        "targets": {
+                            "browsers": ["last 2 versions"]
+                        },
+                        "modules": 'umd'
+                    }
+                ]
+            ],
+            "plugins": [
+                "transform-class-properties",
+                "transform-object-rest-spread",
+                "lodash",
+                "external-helpers",
+                "external-helpers-insert-require"
+            ]
+        }
+    }
+}

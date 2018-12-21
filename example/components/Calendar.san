@@ -1,0 +1,50 @@
+<template>
+    <div class="demo-calendar">
+        <p>
+            <ui-calendar s-ref="cal" on-select="handleSelect" is-disabled="{{isDisabled}}"></ui-calendar>
+        </p>
+        <p>
+            <ui-calendar multiple></ui-calendar>
+        </p>
+        <p>
+            <ui-calendar disabled></ui-calendar>
+        </p>
+        <p>
+            <ui-calendar range></ui-calendar>
+        </p>
+    </div>
+</template>
+<script>
+    import Button from '../../src/components/Button';
+    import Select from '../../src/components/Select';
+    import Calendar from '../../src/components/Calendar';
+
+    export default {
+        initData() {
+            return {
+                name: 'test',
+                isDisabled(timestamp) {
+                    if (timestamp < Date.now() / 1000) {
+                        return true;
+                    }
+                    return false;
+                }
+            };
+        },
+
+        components: {
+            'ui-button': Button,
+            'ui-select': Select,
+            'ui-calendar': Calendar
+        },
+
+        attached() {
+        },
+
+        handleSelect(e) {
+            console.log(e);
+        }
+    };
+</script>
+<style lang="less">
+</style>

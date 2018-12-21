@@ -1,0 +1,76 @@
+<template>
+    <div>
+        <div class="demo">
+            <h2>BreadCrumb</h2>
+            <section><ui-button on-click="next">Switch separator</ui-button></section>
+            <section>
+                <ui-breadcrumb routes="{{items}}" on-redirect="handleRedirect">
+                    <template slot="label"><em>{{route.label}}</em></template>
+                    <template slot="separator">{{sep}}</template>
+                </ui-breadcrumb>
+            </section>
+            <section>
+                <ui-breadcrumb routes="{{items}}" on-redirect="handleRedirect"/>
+            </section>
+            <section>
+            <ui-breadcrumb>
+                <ui-breadcrumb-item to="/">首页</ui-breadcrumb-item>
+                <ui-breadcrumb-item to="{name: 'Breadcrumb'}">面包屑</ui-breadcrumb-item>
+                <ui-breadcrumb-item type="text">我在这里</ui-breadcrumb-item>
+            </ui-breadcrumb>
+            </section>
+        </div>
+    </div>
+</template>
+
+<script>
+import BreadCrumb from '../../src/components/BreadCrumb';
+import Button from '../../src/components/Button';
+const BreadCrumbItem  = BreadCrumb.Item;
+export default {
+    components: {
+        'ui-breadcrumb': BreadCrumb,
+        'ui-breadcrumb-item': BreadCrumbItem,
+        'ui-button': Button
+    },
+    initData() {
+        return {
+            index: 0,
+            seps: ['/', '👉', '➡️', '➜', '➞', '☞'],
+            items: [
+                {to: 'http://www.baidu.com', label: 'baidu', native: false},
+                {to: '/steps', label: '步骤条组件'},
+                {label: '监听跳转事件', native: true},
+                {to: 'http://www.baidu.com', label: '阻止跳转事件', native: true},
+                {to: 'http://www.baidu.com', label: 'replace', replace: true, native: true},
+                {to: '/dialog', label: 'Dialog'},
+                {to: 'http://jn.baidu.com', label: 'jn'}
+            ]
+        };
+    },
+    computed: {
+        sep() {
+            let index = this.data.get('index');
+            let seps = this.data.get('seps');
+            return seps[index];
+        }
+    },
+    next() {
+        let seps = this.data.get('seps');
+        let index = this.data.get('index') || 0;
+        this.data.set('index', (index + 1) % seps.length);
+    },
+    handleRedirect(event, router, index) {
+        if (index === 2) {
+            alert('redirect event');
+        }
+        else if (index === 3) {
+            event.preventDefault();
+            alert('prevent redirect event');
+        }
+    }
+};
+</script>
+
+<style>
+</style>

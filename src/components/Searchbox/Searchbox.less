@@ -1,0 +1,115 @@
+@import (reference) "../../style/lib.less";
+@import (reference) "../../style/dropdown.less";
+
+@searchbox-class: ~"@{class-prefix}-searchbox";
+
+.@{searchbox-class} {
+    display: inline-block;
+
+    &-input {
+        position: relative;
+        display: inline-block;
+        height: @dux-height-normal;
+        line-height: @dux-height-normal;
+        width: 100%;
+        vertical-align: middle;
+
+        .@{class-prefix}-input {
+            width: 100%
+        }
+
+        input {
+            vertical-align: top;
+            width: 100%;
+        }
+    }
+
+    &-icons {
+        position: absolute;
+        .absolute(0, 0, 0, _);
+        font-size: 0;
+        color: @dux-text-color-normal;
+    }
+
+    &-clear-icon {
+        margin-right: 8px;
+        vertical-align: middle;
+
+        &.state-hide {
+            visibility: hidden;
+        }
+    }
+
+    &-search-icon {
+        margin-right: 1em;
+        vertical-align: middle;
+    }
+
+    &-button[ui~="link"] {
+        font-size: @dux-font-size-normal;
+        &:not(.state-disabled):hover {
+            color: @dux-gray-color-1;
+        }
+    }
+
+    &-button[ui~="primary"] {
+        font-size: @dux-font-size-normal;
+    }
+
+    &-search-button {
+        display: none;
+        vertical-align: top;
+        font-size: @dux-font-size-normal;
+    }
+
+    &.state-disabled & {
+        &-clear-button {
+            display: none;
+        }
+
+        &-search-button {
+            border-color: @dux-gray-color-5;
+        }
+    }
+
+    &-suggestions {
+        min-width: 160px;
+        max-height: 280px;
+        overflow-y: auto;
+        background-color: #fff;
+        &:extend(._dux-dropdown-overlay all);
+    }
+
+    &-suggestion-item {
+        &:extend(._dux-dropdown-option all);
+    }
+
+    &[ui~="large"] & {
+        &-input {
+            height: @dux-height-large;
+            line-height: @dux-height-large;
+        }
+    }
+
+    &[ui~="small"] & {
+        &-input {
+            height: @dux-height-small;
+            line-height: @dux-height-small;
+        }
+    }
+
+    &[ui~="primary"] & {
+        &-search-icon {
+            display: none;
+        }
+
+        &-search-button {
+            display: inline-block;
+        }
+
+    }
+
+    &-suggestions[ui~="primary"] {
+        min-width: 180px;
+    }
+}

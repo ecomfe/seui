@@ -1,0 +1,66 @@
+<template>
+    <div>
+        <div class="demo-item">
+            <ui-switch checked="{=checked=}">正常大小</ui-switch>
+            <span>{{checked}}</span>
+        </div>
+        <div class="demo-item">
+            <ui-switch
+                checked="{=checked=}"
+                disabled="{{true}}">
+                禁用
+            </ui-switch>
+            <span>{{checked}}</span>
+        </div>
+        <div class="demo-item">
+            <ui-switch
+                checked="{=checked=}"
+                ui="small">
+                小号
+            </ui-switch>
+            <span>{{checked}}</span>
+        </div>
+        <div class="demo-item">
+            <ui-switch
+                trueValue="on"
+                falseValue="off"
+                checked="{=customChecked=}"
+                ui="small">
+                小号自定义值
+            </ui-switch>
+            <span>{{customChecked}}</span>
+        </div>
+        <div class="demo-item">
+            <ui-switch
+                trueValue="on"
+                falseValue="off"
+                checked="{=customChecked=}"
+                ui="large">
+                大号自定义值
+            </ui-switch>
+            <span>{{customChecked}}</span>
+        </div>
+    </div>
+</template>
+
+<script>
+import Switch from '../../src/components/Switch';
+export default {
+    components:{
+       'ui-switch':Switch
+    },
+    initData() {
+        return {
+            checked: false,
+            customChecked: 'on'
+        };
+    }
+}
+</script>
+
+<style lang='less'>
+    .demo-item{
+        margin-top: 20px;
+    }
+</style>
+

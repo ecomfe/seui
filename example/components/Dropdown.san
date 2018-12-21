@@ -1,0 +1,114 @@
+<template>
+    <div class="demo-dropdown">
+        <p>
+            <ui-dropdown
+                ui="primary"
+                label="操作"
+                options="{{options}}">
+            </ui-dropdown>
+        </p>
+        <p>
+            <ui-dropdown
+                ui="large"
+                label="操作"
+                options="{{options}}">
+            </ui-dropdown>
+        </p>
+        <p>
+            <ui-dropdown
+                ui="small"
+                label="操作"
+                options="{{options}}">
+            </ui-dropdown>
+        </p>
+        <p>
+            <ui-dropdown
+                ui="tiny"
+                label="操作"
+                options="{{options}}">
+            </ui-dropdown>
+        </p>
+        <p>
+            <ui-dropdown label="文件">
+                <ui-option-group>
+                    <ui-option value="new-file" label="新建文件"/>
+                    <ui-option value="new-window" label="新建窗口"/>
+                </ui-option-group>
+                <ui-option-group>
+                    <ui-option value="open" label="打开…"/>
+                    <ui-option value="open-workspace" label="打开工作区…"/>
+                    <ui-option-group label="打开最近的文件" position="popup">
+                        <ui-option value="reopen" label="重新打开已关闭的编辑器"/>
+                        <ui-option value="open:~/Dropdown.san" label="~/Dropdown.san"/>
+                        <ui-option value="open:~/Select.san" label="~/Select.san"/>
+                    </ui-option-group>
+                </ui-option-group>
+            </ui-dropdown>
+        </p>
+        <p>
+            <ui-dropdown
+                ui="primary"
+                label="操作"
+                disabled
+                options="{{options}}">
+            </ui-dropdown>
+        </p>
+        <p>
+            <ui-dropdown
+                ui="link"
+                label="操作"
+                options="{{options}}">
+            </ui-dropdown>
+        </p>
+        <p>
+            <ui-dropdown
+                ui="link"
+                label="操作"
+                disabled
+                options="{{options}}">
+            </ui-dropdown>
+        </p>
+    </div>
+</template>
+<script>
+    import Dropdown from '../../src/components/Dropdown';
+    import Option from '../../src/components/Select/Option';
+    import OptionGroup from '../../src/components/Select/OptionGroup';
+
+    export default {
+        initData() {
+            return {
+                options: [
+                    {
+                        label: '编辑'
+                    },
+                    {
+                        label: '删除'
+                    },
+                    {
+                        label: '保存'
+                    },
+                    {
+                        label: '发布'
+                    }
+                ]
+            };
+        },
+
+        components: {
+            'ui-dropdown': Dropdown,
+            'ui-option': Option,
+            'ui-option-group': OptionGroup
+        },
+
+        attached() {
+        }
+    }
+</script>
+<style lang="less">
+    .demo-dropdown {
+        p {
+            margin-top: 16px;
+        }
+    }
+</style>

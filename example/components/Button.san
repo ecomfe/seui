@@ -1,0 +1,146 @@
+<template>
+    <div class="demo-button">
+        <p>
+            <ui-button ui="primary micro">提交</ui-button>
+            <ui-button ui="primary tiny">提交</ui-button>
+            <ui-button ui="primary small">提交</ui-button>
+            <ui-button ui="primary">提交</ui-button>
+            <ui-button ui="primary large">提交</ui-button>
+            <ui-button ui="primary" disabled>提交</ui-button>
+            <ui-button ui="primary" loading>加载中</ui-button>
+        </p>
+        <p>
+            <ui-button ui="secondary micro">保存</ui-button>
+            <ui-button ui="secondary tiny">保存</ui-button>
+            <ui-button ui="secondary small">保存</ui-button>
+            <ui-button ui="secondary">保存</ui-button>
+            <ui-button ui="secondary large">保存</ui-button>
+            <ui-button ui="secondary" disabled>保存</ui-button>
+            <ui-button ui="secondary" loading>加载中</ui-button>
+        </p>
+        <p>
+            <ui-button ui="micro"><ui-icon name="cross-small"></ui-icon>取消</ui-button>
+            <ui-button ui="tiny"><ui-icon name="cross-small"></ui-icon>取消</ui-button>
+            <ui-button ui="small"><ui-icon name="cross-small"></ui-icon>取消</ui-button>
+            <ui-button><ui-icon name="cross-small"></ui-icon>取消</ui-button>
+            <ui-button ui="large"><ui-icon name="cross-small"></ui-icon>取消</ui-button>
+            <ui-button disabled><ui-icon name="cross-small"></ui-icon>取消</ui-button>
+            <!--ui-button loading><ui-icon name="cross-small"></ui-icon>取消</ui-button-->
+        </p>
+        <p>
+            <ui-button ui="alt micro">取消</ui-button>
+            <ui-button ui="alt tiny">取消</ui-button>
+            <ui-button ui="alt small">取消</ui-button>
+            <ui-button ui="alt">取消</ui-button>
+            <ui-button ui="alt large">取消</ui-button>
+            <ui-button ui="alt" disabled>取消</ui-button>
+            <ui-button ui="alt" loading>加载中</ui-button>
+        </p>
+        <p>
+            <ui-button ui="link primary micro">创建</ui-button>
+            <ui-button ui="link primary tiny">创建</ui-button>
+            <ui-button ui="link primary small">创建</ui-button>
+            <ui-button ui="link primary">创建</ui-button>
+            <ui-button ui="link primary large">创建</ui-button>
+            <ui-button ui="link primary" disabled>创建</ui-button>
+            <ui-button ui="link primary" loading>加载中</ui-button>
+        </p>
+        <p>
+            <ui-button ui="link micro">编辑</ui-button>
+            <ui-button ui="link tiny">编辑</ui-button>
+            <ui-button ui="link small">编辑</ui-button>
+            <ui-button ui="link">编辑</ui-button>
+            <ui-button ui="link large">编辑</ui-button>
+            <ui-button ui="link" disabled>编辑</ui-button>
+            <ui-button ui="link" loading>加载中</ui-button>
+        </p>
+        <p>
+            <ui-button ui="round primary micro"><ui-icon name="check"></ui-icon></ui-button>
+            <ui-button ui="round primary tiny"><ui-icon name="check"></ui-icon></ui-button>
+            <ui-button ui="round primary small"><ui-icon name="check"></ui-icon></ui-button>
+            <ui-button ui="round primary"><ui-icon name="check"></ui-icon></ui-button>
+            <ui-button ui="round primary large"><ui-icon name="check"></ui-icon></ui-button>
+            <ui-button ui="round primary" disabled><ui-icon name="check"></ui-icon></ui-button>
+            <ui-button ui="round primary" loading><ui-icon name="check"></ui-icon></ui-button>
+        </p>
+        <p>
+            <ui-button ui="round micro"><ui-icon name="edit"></ui-icon></ui-button>
+            <ui-button ui="round tiny"><ui-icon name="edit"></ui-icon></ui-button>
+            <ui-button ui="round small"><ui-icon name="edit"></ui-icon></ui-button>
+            <ui-button ui="round"><ui-icon name="edit"></ui-icon></ui-button>
+            <ui-button ui="round large"><ui-icon name="edit"></ui-icon></ui-button>
+            <ui-button ui="round" disabled><ui-icon name="edit"></ui-icon></ui-button>
+            <ui-button ui="round" loading><ui-icon name="edit"></ui-icon></ui-button>
+        </p>
+        <p>
+            <ui-button ui="square micro"><ui-icon name="search"></ui-icon></ui-button>
+            <ui-button ui="square tiny"><ui-icon name="search"></ui-icon></ui-button>
+            <ui-button ui="square small"><ui-icon name="search"></ui-icon></ui-button>
+            <ui-button ui="square"><ui-icon name="search"></ui-icon></ui-button>
+            <ui-button ui="square large"><ui-icon name="search"></ui-icon></ui-button>
+            <ui-button ui="square" disabled><ui-icon name="search"></ui-icon></ui-button>
+            <ui-button ui="square" loading><ui-icon name="search"></ui-icon></ui-button>
+        </p>
+        <p>
+            <ui-button ui="alt square micro"><ui-icon name="cross"></ui-icon></ui-button>
+            <ui-button ui="alt square tiny"><ui-icon name="cross"></ui-icon></ui-button>
+            <ui-button ui="alt square small"><ui-icon name="cross"></ui-icon></ui-button>
+            <ui-button ui="alt square"><ui-icon name="cross"></ui-icon></ui-button>
+            <ui-button ui="alt square large"><ui-icon name="cross"></ui-icon></ui-button>
+            <ui-button ui="alt square" disabled><ui-icon name="cross"></ui-icon></ui-button>
+            <ui-button ui="alt square" loading><ui-icon name="cross"></ui-icon></ui-button>
+        </p>
+    </div>
+</template>
+<script>
+    import Button from '../../src/components/Button';
+    import Select from '../../src/components/Select';
+    import Icon from '../../src/components/Icon';
+
+    export default {
+        initData() {
+            return {
+                name: 'test',
+                defaultValue: null,
+                defaultValue1: null,
+                options: [
+                    {
+                        label: '下拉选项1',
+                        value: 1
+                    },
+                    {
+                        label: '下拉选项下拉选项下拉选项22',
+                        value: 2
+                    },
+                    {
+                        label: '下拉选项3',
+                        value: 3
+                    },
+                    {
+                        label: '下拉选项4',
+                        value: 4
+                    }
+                ]
+            };
+        },
+
+        components: {
+            'ui-button': Button,
+            'ui-select': Select,
+            'ui-icon': Icon
+        },
+
+        attached() {
+        }
+    }
+</script>
+<style lang="less">
+    .demo-button {
+        p {
+            margin-top: 16px;
+            button {
+                margin-right: 16px
+            }
+        }
+    }
+</style>

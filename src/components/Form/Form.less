@@ -1,0 +1,34 @@
+@import (reference) "../../style/lib.less";
+
+.@{class-prefix}-form {
+    .@{class-prefix}-field {
+        margin-bottom: @dux-field-gap;
+    }
+
+    .veui-field:last-child {
+        margin-bottom: 0;
+    }
+
+    &[ui~="inline"] {
+        .clearfix();
+
+        & > * + * {
+            margin-left: 10px;
+        }
+
+        .@{class-prefix}-form-item {
+            display: inline-block;
+            margin-bottom: 0;
+            clear: none;
+
+            & .@{class-prefix}-form-item-label,
+            &.@{class-prefix}-field-no-label::before {
+                width: auto;
+            }
+
+            & + .@{class-prefix}-fieldset {
+                margin-left: 30px;
+            }
+        }
+    }
+}

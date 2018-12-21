@@ -1,0 +1,83 @@
+<template>
+    <div>
+        <p>
+            <dux-radio>是否</dux-radio>
+        </p>
+        <p>
+            <dux-radio ui="small">是否(小号)</dux-radio>
+        </p>
+        <p>
+            <dux-radio checked="{=checked=}">是否(小号)</dux-radio>
+            <span>{{checked}}</span>
+        </p>
+        <p>
+            <dux-radio checked="{=dynimicValueTrue=}">是否</dux-radio>
+            <span>{{dynimicValueTrue}}</span>
+        </p>
+        <p>
+            <dux-radio checked="{=dynimicValueFalse=}">是否</dux-radio>
+            <span>{{dynimicValueFalse}}</span>
+        </p>
+        <p>
+            <dux-radio
+                trueValue="yes"
+                falseValue="no"
+                checked="{=customValue=}">自定义值否</dux-radio>
+            <span>{{customValue}}</span>
+        </p>
+        <p>
+            <dux-radio
+                trueValue="yes"
+                checked="{=customValueOnlyOne=}">自定义值是</dux-radio>
+            <span>{{customValueOnlyOne}}</span>
+        </p>
+        <p>
+            <dux-radio
+                disabled="{{true}}"
+                trueValue="yes"
+                falseValue="no"
+                checked="{=customValueOnlyOne=}">自定义值disabled</dux-radio>
+            <span>{{customValueOnlyOne}}</span>
+        </p>
+        <p>
+            <dux-radio
+                readonly="{{true}}"
+                trueValue="yes"
+                checked="{=customValueOnlyOne=}">自定义值</dux-radio>
+            <span>{{customValueOnlyOne}}</span>
+        </p>
+        <p>
+            <dux-radio
+                trueValue="1"
+                checked="{=customValueIsEmpty=}">自定义值为空</dux-radio>
+            <span>{{customValueIsEmpty}}</span>
+        </p>
+    </div>
+</template>
+
+<script>
+import Radio from '../../src/components/Radio';
+export default {
+    components:{
+       'dux-radio':Radio
+    },
+    initData() {
+        return {
+            checked: false,
+            dynimicValueTrue: false,
+            dynimicValueFalse: true,
+            customValue: 'no',
+            customValueOnlyOne: 'yes',
+            customValueIsEmpty: ''
+        };
+    },
+    attached() {
+        setTimeout(() => {
+            this.data.set('dynimicValueTrue', true);
+        }, 3000);
+        setTimeout(() => {
+            this.data.set('dynimicValueFalse', false);
+        }, 3000);
+    }
+}
+</script>

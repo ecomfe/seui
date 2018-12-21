@@ -1,0 +1,90 @@
+<template>
+    <div class="demo-schedule">
+        <ui-schedule  hourClass="{{hourClass}}"
+        selected="{{selected}}"
+        shortcuts="{{shortcuts}}" shortcuts-display="expand" statuses="{{statuses}}"></ui-schedule>
+    </div>
+</template>
+<script>
+    import Schedule from '../../src/components/Schedule';
+    export default {
+        initData() {
+            return {
+                selected: {
+                    0: [[0, 23]],           // 周日
+                    1: [[9, 11], [13, 17]], // 周一
+                    3: [[13, 16]],          // 周三
+                    5: [[9, 9], [16, 17]]   // 周五
+                },
+                statuses: [
+                    {
+                        label: '已投放',
+                        name: 'selected'
+                    },
+                    {
+                        label: '推荐时段',
+                        name: 'weekend'
+                    },
+                    {
+                        label: '未投放',
+                        name: 'available'
+                    }
+                ],
+                shortcuts: [
+                    {
+                        label: '全周',
+                        selected: {
+                            0: true,
+                            1: true,
+                            2: true,
+                            3: true,
+                            4: true,
+                            5: true,
+                            6: true
+                        }
+                    },
+                    {
+                        label: '工组日',
+                        selected: {
+                            1: true,
+                            2: true,
+                            3: true,
+                            4: true,
+                            5: true
+                        }
+                    },
+                    {
+                        label: '周末',
+                        selected: {
+                            0: true,
+                            6: true
+                        }
+                    }
+                ]
+            };
+        },
+
+        components: {
+            'ui-schedule': Schedule
+        },
+
+        attached() {
+        }
+    }
+</script>
+<style lang="less">
+.dux-schedule {
+    & .night:not(.dux-schedule-selected) {
+        color: #f1f8ff;
+    }
+
+    & .weekend:not(.dux-schedule-selected) {
+        color: #f1fff8;
+    }
+
+    & .dux-schedule-legend-weekend::before {
+        border: 1px solid #dbdbdb;
+        background-color: #f1fff8;
+    }
+}
+</style>

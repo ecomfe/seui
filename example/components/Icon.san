@@ -1,0 +1,51 @@
+<template>
+    <div class="demo-icon-warp">
+        <div class="demo-icon-item" s-for="item in list">
+            <dux-icon class="demo-icon" name="{{item.name}}"></dux-icon>
+            <span class="demo-icon-name">{{item.name}}</span>
+        </div>
+        <dux-icon scale="{{2}}" class="demo-icon" name="beer"></dux-icon>
+        <dux-icon spin scale="{{2}}" class="demo-icon" name="beer"></dux-icon>
+        <dux-icon pulse scale="{{2}}" class="demo-icon" name="beer"></dux-icon>
+        <dux-icon flip="horizontal" scale="{{2}}" class="demo-icon" name="beer"></dux-icon>
+        <dux-icon flip="vertical" scale="{{2}}" class="demo-icon" name="beer"></dux-icon>
+        <dux-icon inverse scale="{{2}}" class="demo-icon" name="beer"></dux-icon>
+    </div>
+</template>
+
+<script>
+import Icon from '../../src/components/Icon';
+import iconList from '../../src/assets/icons.js';
+
+export default {
+   components: {
+       'dux-icon': Icon
+   },
+
+   attached() {
+       let list = Object.keys(iconList);
+       list = list.map(item => {
+           return {
+               name: item,
+               ...iconList[item]
+           };
+       });
+       this.data.set('list', list);
+   }
+};
+</script>
+
+<style lang="less">
+.demo-icon-warp {
+    font-size: 16px;
+}
+.demo-icon {
+    margin: 10px;
+    vertical-align: middle;
+}
+.demo-icon-name {
+    vertical-align: middle;
+    font-size: 12px
+}
+
+</style>

@@ -1,0 +1,133 @@
+@import (reference) "../../style/lib.less";
+@progress-prefix-cls: ~"@{class-prefix}-line";
+
+.@{progress-prefix-cls} {
+    position: relative;
+    display: inline-block;
+    font-size: @dux-font-size-small;
+
+    &-bar {
+        width: 100%;
+    }
+
+    &-outer {
+        display: inline-block;
+        width: 100%;
+        margin-right: 0;
+        padding-right: 0;
+
+        .@{progress-prefix-cls}-show-info & {
+            padding-right: 55px;
+            margin-right: -55px;
+        }
+    }
+
+    &-inner {
+        display: inline-block;
+        width: 100%;
+        background: @dux-gray-color-5;
+        vertical-align: middle;
+    }
+
+    &-bg {
+        position: relative;
+        background-color: @dux-gray-color-2;
+        transition: all .2s linear;
+        max-width: 100%;
+    }
+
+    &-desc {
+        display: inline-block;
+        margin-left: 5px;
+        text-align: left;
+        font-size: 1em;
+        vertical-align: middle;
+    }
+
+    &[ui~="tiny"] &-desc-text {
+        display: none;
+    }
+
+    &-circular & {
+        height: auto;
+        &-circle {
+            display: block;
+            transform: rotate(-90deg);
+        }
+        &-trail {
+            stroke: @dux-gray-color-5;
+        }
+        &-meter {
+            stroke: @dux-gray-color-2;
+            transition: stroke-dashoffset .2s;
+        }
+        &-desc {
+            position: absolute;
+            margin-left: 0;
+            top: auto;
+            right: 50%;
+            bottom: 50%;
+            left: auto;
+            transform: translate(50%,50%);
+            font-size: 16px;
+        }
+    }
+
+    &-active & {
+        &-bg:before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #fff;
+            content: '';
+            opacity: 0;
+            animation: dux-progress-active 2s ease-in-out infinite;
+        }
+    }
+
+    &-info & {
+        &-bg {
+            background-color: @dux-info-color;
+        }
+        &-meter {
+            stroke: @dux-info-color;
+        }
+    }
+
+    &-alert & {
+        &-bg {
+            background-color: @dux-error-color;
+        }
+        &-meter {
+            stroke: @dux-error-color;
+        }
+        &-desc {
+            color: @dux-error-color;
+        }
+    }
+
+    &-success & {
+        &-bg {
+            background-color: @dux-success-color;
+        }
+        &-meter {
+            stroke: @dux-success-color;
+        }
+        &-desc {
+            color: @dux-success-color;
+        }
+    }
+}
+
+@keyframes dux-progress-active {
+    0% {
+        opacity: .3;
+        width: 0;
+    }
+    100% {
+        opacity: 0;
+        width: 100%;
+    }
+}

@@ -1,0 +1,10 @@
+@import (reference) "./lib.less";
+// FIXME less.js不支持 extend和mixin的时候带变量，因此这里只能写死
+
+._dux-input-invalid {
+    &,
+    &:hover,
+    &:focus {
+        border-color: @dux-alert-color;
+    }
+}

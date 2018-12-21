@@ -1,0 +1,59 @@
+<template>
+    <div class="dux-form-item-area">
+        <ui-select
+            on-change="handleTypeChange($event)"
+            showAll="{{true}}"
+            options="{{options}}"
+            value="{{value.type}}"
+        ></ui-select>
+        <ui-input
+            placeholder="{{placeholder}}"
+            value="{{value.contact}}"
+            on-input="handleInput($event)"
+        ></ui-input>
+    </div>
+</template>
+<script>
+import Select from '../../../src/components/Select';
+import Input from '../../../src/components/Input';
+export default {
+    components:{
+        'ui-select': Select,
+        'ui-input': Input
+    },
+    // 阻止子组件dispatch的事件
+    messages: {
+        'UI:form-item-interact'(arg) {
+            return;
+        }
+    },
+    initData() {
+        return {};
+    },
+    handleTypeChange(type) {
+        this.data.set('value.type', type);
+        this.dispatchEvent();
+    },
+    handleInput(e) {
+        this.data.set('value.contact', e.target.value);
+        this.dispatchEvent();
+    },
+    dispatchEvent() {
+        let value = this.data.get('value');
+        this.dispatch('UI:form-item-interact', value);
+    }
+}
+</script>
+
+<style lang='less'>
+    .dux-form-item-area {
+        height: 36px;
+        .dux-select,
+        .dux-input-box {
+            float: left;
+            margin-right: 20px;
+        }
+    }
+</style>
+
+

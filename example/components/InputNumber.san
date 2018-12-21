@@ -1,0 +1,88 @@
+<template>
+    <div class="demo-input-warp">
+        <div class="input-number-demo">
+            <dux-input-number ui="large" value="{=value=}"></dux-input-number>
+            <span class="deom-value">{{value}}</span>
+        </div>
+        <div class="input-number-demo">
+            <dux-input-number ui="small" value="{=value=}"></dux-input-number>
+            <span class="deom-value">{{value}}</span>
+        </div>
+        <div class="input-number-demo">
+            <dux-input-number ui="tiny" value="{=value=}"></dux-input-number>
+            <span class="deom-value">{{value}}</span>
+        </div>
+        <div class="input-number-demo">
+            <dux-input-number ui="micro" value="{=value=}"></dux-input-number>
+            <span class="deom-value">{{value}}</span>
+        </div>
+        <div class="input-number-demo">
+            <dux-input-number
+                disabled
+                readonly
+                value="{=value1=}"></dux-input-number>
+            <span class="deom-value">{{value1}}</span>
+        </div>
+        <div class="input-number-demo">
+            <dux-input-number value="{=value2=}"></dux-input-number>
+            <span class="deom-value">{{value2}}</span>
+        </div>
+        <div class="input-number-demo">
+            <dux-input-number value="{=value3=}"></dux-input-number>
+            <span class="deom-value">{{value3}}</span>
+        </div>
+        <div class="input-number-demo">
+            <dux-input-number value="{=value4=}"></dux-input-number>
+            <span class="deom-value">{{value4}}</span>
+        </div>
+        <div class="input-number-demo">
+            <dux-input-number min="{{0}}" max="{{5}}" value="{=value5=}"></dux-input-number>
+            <span class="deom-value">{{value5}}(最小为0，最大为5)</span>
+        </div>
+        <div class="input-number-demo">
+            <dux-input-number step="{{20}}" min="{{0}}" max="{{100}}" value="{=value6=}"></dux-input-number>
+            <span class="deom-value">{{value6}}(最小为0，最大为100，步长为20)</span>
+        </div>
+        <div class="input-number-demo">
+            <dux-input-number decimalPlace="{{2}}" step="{{0.01}}" min="{{0}}" max="{{5}}" value="{=value7=}"></dux-input-number>
+            <span class="deom-value">{{value7}}(最小为0，最大为5，步长为0.01，精度为小数点后两位)</span>
+        </div>
+        <div class="input-number-demo">
+            <dux-input-number decimalPlace="{{2}}" step="{{0.001}}" min="{{0}}" max="{{5}}" value="{=value8=}"></dux-input-number>
+            <span class="deom-value">{{value8}}(最小为0，最大为5，步长为0.001，精度为小数点后两位,按钮加减将无效)</span>
+        </div>
+    </div>
+</template>
+
+<script>
+import Input from '../../src/components/InputNumber';
+
+export default {
+    components:{
+       'dux-input-number': Input
+    },
+    initData() {
+        return {
+            value: 0,
+            value1: 10,
+            value2: '',
+            value3: 0,
+            value4: 0,
+            value5: 1,
+            value6: 50
+        };
+    },
+    attached() {
+        setTimeout(() => {
+            this.data.set('value3', 1000);
+            this.data.set('value4', 'aaaa')
+        }, 3000);
+    }
+};
+</script>
+
+<style lang="less">
+    .input-number-demo {
+        margin: 20px 0;
+    }
+</style>

@@ -1,0 +1,168 @@
+<template>
+    <div>
+        <p>
+            <dux-checkbox-group
+                items="{{items}}"
+                value="{=groupValue=}"
+            ></dux-checkbox-group>
+            <span>{{groupValueJson}}</span>
+        </p>
+        <p>
+            <dux-checkbox-group
+                showAll="{{true}}"
+                items="{{items}}"
+                allLabel="选择全部"
+                value="{=groupValue=}"
+            ></dux-checkbox-group>
+            <span>{{groupValueJson}}</span>
+        </p>
+        <p>
+            <dux-checkbox-group
+                showAll="{{true}}"
+                items="{{items}}"
+                value="{=groupValue=}"
+            ></dux-checkbox-group>
+            <span>{{groupValueJson}}</span>
+        </p>
+        <p>
+            <dux-checkbox-group
+                showAll="{{true}}"
+                items="{{items}}"
+                allLabel="选择全部"
+                value="{=groupValueAll=}"
+            ></dux-checkbox-group>
+            <span>{{groupValueAllJson}}</span>
+        </p>
+
+
+        <p>
+            <dux-checkbox-group
+                items="{{itemsWithDisabled}}"
+                value="{=groupValueDisabled=}"
+            ></dux-checkbox-group>
+            <span>{{groupValueJsonDisabled}}</span>
+        </p>
+        <p>
+            <dux-checkbox-group
+                showAll="{{true}}"
+                items="{{itemsWithDisabled}}"
+                allLabel="选择全部"
+                value="{=groupValueDisabled=}"
+            ></dux-checkbox-group>
+            <span>{{groupValueJsonDisabled}}</span>
+        </p>
+        <p>
+            <dux-checkbox-group
+                showAll="{{true}}"
+                items="{{itemsWithDisabled}}"
+                allLabel="选择全部"
+                value="{=groupValueAllDisabled=}"
+            ></dux-checkbox-group>
+            <span>{{groupValueAllJsonDisabled}}</span>
+        </p>
+    </div>
+</template>
+
+<script>
+import CheckboxGroup from '../../src/components/CheckboxGroup';
+export default {
+    components:{
+       'dux-checkbox-group':CheckboxGroup
+    },
+    computed: {
+        groupValueJson() {
+            let groupValue = this.data.get('groupValue');
+            return JSON.stringify(groupValue);
+        },
+        groupValueAllJson() {
+            let groupValue = this.data.get('groupValueAll');
+            return JSON.stringify(groupValue);
+        },
+        groupValueJsonDisabled() {
+            let groupValue = this.data.get('groupValueDisabled');
+            return JSON.stringify(groupValue);
+        },
+        groupValueAllJsonDisabled() {
+            let groupValue = this.data.get('groupValueAllDisabled');
+            return JSON.stringify(groupValue);
+        }
+    },
+    initData() {
+        return {
+            items: [
+                {
+                    value: '1',
+                    label: '苹果'
+                },
+                {
+                    value: '2',
+                    label: '梨'
+                },
+                {
+                    value: '3',
+                    label: '香蕉'
+                },
+                {
+                    value: '4',
+                    label: '奇异果'
+                },
+                {
+                    value: '5',
+                    label: '橘子'
+                },
+                {
+                    value: '6',
+                    label: '苹果'
+                },
+                {
+                    value: '7',
+                    label: '牛油果'
+                },
+                {
+                    value: '8',
+                    label: '西瓜'
+                }
+            ],
+            itemsWithDisabled: [
+                {
+                    value: '1',
+                    label: '苹果'
+                },
+                {
+                    value: '2',
+                    label: '梨',
+                    disabled: true
+                },
+                {
+                    value: '3',
+                    label: '香蕉'
+                },
+                {
+                    value: '4',
+                    label: '奇异果'
+                },
+                {
+                    value: '5',
+                    label: '橘子'
+                },
+                {
+                    value: '6',
+                    label: '苹果'
+                },
+                {
+                    value: '7',
+                    label: '牛油果'
+                },
+                {
+                    value: '8',
+                    label: '西瓜'
+                }
+            ],
+            groupValue: ['1', '3'],
+            groupValueAll: ['1', '2', '3'],
+            groupValueDisabled: ['1', '3'],
+            groupValueAllDisabled: ['1', '2', '3']
+        };
+    }
+}
+</script>

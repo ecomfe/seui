@@ -1,0 +1,64 @@
+@import (reference) "../../style/lib.less";
+
+.@{class-prefix}-toast {
+    position: absolute;
+    left: 50%;
+    display: inline-block;
+    transform: translateX(-50%);
+    transition: opacity .3s,top .3s,transform .3s;
+    max-width: 500px;
+    max-height: 62px;
+    padding: 10px 30px;
+    background-color: #fff;
+    line-height: 1.5;
+    border-radius: 1px;
+    color: #666;
+
+    &.state-enter,
+    &.state-leave {
+      opacity: 0;
+    }
+
+    &.state-enter {
+      transform: translate(-50%, -100%);
+    }
+
+    span {
+        display: inline-block;
+        color: rgb(102, 102, 102);
+        margin-left: 20px;
+    }
+
+    .@{class-prefix}-icon {
+        position: absolute;
+        top: 50%;
+        left: 30px;
+        transform: translateY(-50%);
+        font-size: 16px;
+    }
+    .@{class-prefix}-toast-message {
+        display: block;
+        margin-left: 36px;
+    }
+
+    .toast-style(@color) {
+        color: @color;
+        .dux-overlay-shadow();
+    }
+
+    &-success {
+        .toast-style(@dux-success-color);
+    }
+
+    &-warning {
+        .toast-style(@dux-warning-color);
+    }
+
+    &-info {
+        .toast-style(@dux-info-color);
+    }
+
+    &-error {
+        .toast-style(@dux-error-color);
+    }
+}

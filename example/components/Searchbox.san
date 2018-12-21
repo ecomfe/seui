@@ -1,0 +1,184 @@
+<template>
+  <article>
+    <section>
+      <h2>普通</h2>
+      <p>
+        <dux-searchbox
+            name="{{name}}"
+            placeholder="{{placeholder}}"
+            on-search="handleSearch($event)"></dux-searchbox>
+      </p>
+    </section>
+    <section>
+      <h2>禁用</h2>
+      <p>
+        <dux-searchbox
+            name="{{name}}"
+            placeholder="{{placeholder}}"
+            value="{{value}}"
+            readonly
+            on-search="handleSearch($event)"></dux-searchbox>
+      </p>
+    </section>
+    <section>
+      <h2>Suggestion</h2>
+      <p>
+        <dux-searchbox
+            value="{=value2=}"
+            clearable
+            name="{{name}}"
+            placeholder="{{placeholder}}"
+            suggestions="{{suggestions1}}"
+            suggest-trigger="focus"
+            on-suggest="handleSuggest('1', $event)"
+            on-input="handleInput($event)"
+            on-search="handleSearch($event)"
+            on-select="handleSelect($event)"></dux-searchbox>
+      </p>
+    </section>
+    <section>
+      <h2>小ui模式(focus)</h2>
+      <p>
+        <dux-searchbox
+            ui="small"
+            clearable
+            value="{=value3=}"
+            name="{{name}}"
+            placeholder="{{placeholder}}"
+            suggestions="{{suggestions2}}"
+            replaceOnSelect
+            suggest-trigger="focus"
+            on-suggest="handleSuggest('2', $event)"
+            on-search="handleSearch($event)"></dux-searchbox>
+      </p>
+      <h2>小ui模式2(input, submit)</h2>
+      <p>
+        <dux-searchbox
+            ui="small"
+            clearable
+            value="{=valueis=}"
+            name="{{name}}"
+            placeholder="{{placeholder}}"
+            suggestions="{{suggestionsis}}"
+            replaceOnSelect
+            suggest-trigger="{{['input', 'submit']}}"
+            on-suggest="handleSuggest('is', $event)"
+            on-search="handleSearch($event)"></dux-searchbox>
+      </p>
+    </section>
+    <section>
+      <h2>大ui模式(input)</h2>
+      <p>
+        <dux-searchbox
+            ui="large"
+            name="{{name}}"
+            value="{=value4=}"
+            placeholder="{{placeholder}}"
+            suggestions="{{suggestions3}}"
+            suggest-trigger="input"
+            on-suggest="handleSuggest('3', $event)"
+            on-search="handleSearch($event)"></dux-searchbox>
+      </p>
+    </section>
+    <section>
+      <h2>全局搜索框</h2>
+      <p>
+        <dux-searchbox
+            replaceOnSelect
+            name="{{name}}"
+            placeholder="{{placeholder}}"
+            suggestions="{{suggestions4}}"
+            on-input="handleSuggest('4', $event)"
+            on-search="handleSearch($event)"
+            on-select="handleSelect($event)"></dux-searchbox>
+      </p>
+    </section>
+    <section>
+      <h2>禁用全局搜索框</h2>
+      <p>
+        <dux-searchbox
+            ui="alt primary"
+            disabled
+            name="{{name}}"
+            placeholder="{{placeholder}}"
+            suggestions="{{suggestions5}}"
+            on-input="handleInput('5', $event)"
+            on-search="handleSearch($event)"></dux-searchbox>
+      </p>
+    </section>
+  </article>
+</template>
+
+<script>
+import Searchbox from '../../src/components/Searchbox';
+
+export default {
+    components: {
+        'dux-searchbox': Searchbox
+    },
+
+    initData () {
+        return {
+            name: 'name',
+            value: '测试值',
+            value2: '测试值',
+            value3: '测试值',
+            valueis: '测试值',
+            placeholder: '百度(placeholder)',
+            suggestions1: [],
+            suggestions2: [],
+            suggestionsis: [],
+            suggestions3: [],
+            suggestions4: [],
+            suggestions5: []
+        }
+    },
+
+    handleInput(value) {
+        console.log(value);
+    },
+
+    handleSuggest(num, value) {
+        if (value && num < 3) {
+            this.data.set(`suggestions${num}`, [
+                {
+                    value,
+                    label: value
+                },
+                {
+                    value: '百度',
+                    label: '百度'
+                },
+                {
+                    value: '百度贴吧',
+                    label: '百度贴吧'
+                },
+                {
+                    value: '百度MVP',
+                    label: '百度MVP'
+                }
+            ]);
+        }
+        else if (value) {
+            this.data.set(`suggestions${num}`, [
+                value,
+                '百度',
+                '百度贴吧',
+                '百度MVP',
+                '百度指数'
+            ]);
+        }
+        else {
+            this.data.set(`suggestions${num}`, []);
+        }
+    },
+
+    handleSearch(e) {
+        console.log(e);
+    },
+
+    handleSelect(e) {
+        console.log(e);
+    }
+}
+</script>

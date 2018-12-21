@@ -1,0 +1,61 @@
+@import (reference) "../../style/lib.less";
+@import (reference) "../../style/dropdown.less";
+
+.@{class-prefix}-option-group {
+    &-label {
+        display: block;
+        padding: 0 10px;
+
+        .centered-line(@dux-height-normal);
+    }
+
+    &-label:not(&-button) {
+        font-size: @dux-font-size-small;
+        color: @dux-text-color-weak;
+    }
+    
+    .@{class-prefix}-option {
+        padding-left: 20px;
+    }
+
+    &-button {
+        &:extend(._dux-dropdown-option all);
+    }
+
+
+    &-expanded &-button {
+        background-color: @dux-gray-color-8;
+
+        &:active {
+            background-color: @dux-gray-color-6;
+        }
+    }
+
+    &-unlabelled {
+        border-top: 1px solid @dux-gray-color-6;
+
+        &:first-child {
+            border-top: none;
+        }
+
+        .@{class-prefix}-option {
+            padding-left: 10px;
+        }
+    }
+
+    &-box &-options {
+        ._dux-dropdown-overlay();
+        // &:extend(._dux-dropdown-overlay all);
+    }
+
+    &-box &-options {
+        margin: -1px 5px;
+    }
+
+    &-expandable {
+        float: right;
+        margin-top: ~"calc(@{half-height} - .5em)";
+
+        @half-height: @dux-height-normal / 2;
+    }
+}

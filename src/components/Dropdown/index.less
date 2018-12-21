@@ -1,0 +1,103 @@
+@import (reference) "../../style/lib.less";
+@import (reference) "../../style/dropdown.less";
+
+.@{class-prefix}-dropdown {
+    &:extend(._dux-dropdown-button all);
+    display: inline-block;
+    min-width: 110px;
+    max-width: 210px;
+
+    &-split &-command {
+    width: ~"calc(100% - 36px)";
+    margin-right: -1px;
+    }
+    
+      &-split &-label {
+        max-width: none;
+      }
+    
+      &-split &-button {
+        position: relative;
+        width: 36px;
+        padding: 0;
+        text-align: center;
+    
+        .veui-icon {
+          float: none;
+        }
+    
+        &::before,
+        &::after, {
+          content: "";
+          display: inline-block;
+        }
+    
+        &[ui~="primary"]::before {
+          .absolute(_, _, 50%, -1.5px);
+          transform: translateY(50%);
+          width: 1px;
+          height: 1em;
+          background-color: #fff;
+          opacity: .5;
+          transition: opacity @dux-transition-duration, transform @dux-transition-duration;
+        }
+      }
+    
+      &-split&-expanded[ui~="primary"],
+      &-split[ui~="primary"]:hover, {
+        .veui-dropdown-button::before {
+          opacity: 0;
+          transform: translateY(50%) scaleY(.01);
+        }
+      }
+
+    &-options {
+        &:extend(._dux-dropdown-overlay all);
+        min-width: 110px;
+        max-height: 280px;
+        overflow-y: auto;
+        background-color: #fff;
+    }
+
+    &-option {
+        &:extend(._dux-dropdown-option all);
+    }
+
+    &[ui~="link"] {
+        min-width: auto;
+
+        & .@{class-prefix}-dropdown-label {
+            width: auto;
+            max-width: none;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .@{class-prefix}-button {
+            .size(auto);
+            line-height: @dux-line-height-normal;
+
+            &:not(:disabled) {
+                &:hover,
+                &.focus-visible {
+                    color: @dux-brand-color-2;
+                }
+
+                &:active {
+                    color: @dux-brand-color-1;
+                }
+
+            }
+
+            & > .@{class-prefix}-icon {
+                float: none;
+                margin-top: 0;
+                vertical-align: middle;
+            }
+        }
+
+        &[ui~="primary"]:not(:disabled) {
+            color: @dux-brand-color;
+        }
+    }
+}

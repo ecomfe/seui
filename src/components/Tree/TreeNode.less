@@ -1,0 +1,50 @@
+@import (reference) "../../style/lib.less";
+
+@tree-node-class: ~"@{class-prefix}-tree-node";
+
+.@{tree-node-class} {
+
+    .@{tree-node-class}-content {
+        height: @dux-height-normal;
+        line-height: @dux-height-normal;
+
+        &:hover {
+            background: @dux-gray-color-8;
+        }
+    }
+
+    &-label {
+        display: inline-block;
+        &:first-child {
+            margin-left: 18px;
+        }
+    }
+
+    &-switcher {
+        float: left;
+        margin-right: 4px;
+        // vertical-align: middle;
+        cursor: pointer;
+    }
+
+    &-checkbox:first-child {
+        margin-left: 18px;
+    }
+
+    &-children {
+        display: none;
+        padding-left: 18px;
+    }
+
+    &.state-expanded {
+        & > .@{tree-node-class}-children {
+            display: block;
+        }
+    }
+
+    &.state-hide {
+        display: none
+    }
+
+}
+

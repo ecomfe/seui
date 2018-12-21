@@ -1,0 +1,155 @@
+<template>
+    <div>
+        <!--ui-table ui="alt">
+            <ui-thead slot="header">
+                <ui-tr>
+                    <ui-th tooltip="名称">Name</ui-th>
+                    <ui-th tooltip="城市">City</ui-th>
+                    <ui-th tooltip="生日">Birthday</ui-th>
+                </ui-tr>
+            </ui-thead>
+            <ui-tbody>
+                <ui-tr san-for="item in persons">
+                    <ui-td>{{item.name}}</ui-td>
+                    <ui-td>{{item.city}}</ui-td>
+                    <ui-td>{{item.birthday}}</ui-td>
+                </ui-tr>
+            </ui-tbody>
+        </ui-table>
+        <div style="height: 20px"></div>
+        <ui-table ui="alt" selectable="multi" on-select="multiTableSelect($event)">
+            <ui-thead slot="header">
+                <ui-tr>
+                    <ui-th tooltip="名称">Name</ui-th>
+                    <ui-th tooltip="城市">City</ui-th>
+                    <ui-th tooltip="生日">Birthday</ui-th>
+                </ui-tr>
+            </ui-thead>
+            <ui-tbody>
+                <ui-tr san-for="item, index in persons" selected="{=item.selected=}">
+                    <ui-td>{{item.name}}</ui-td>
+                    <ui-td>{{item.city}}</ui-td>
+                    <ui-td>{{item.birthday}}</ui-td>
+                </ui-tr>
+            </ui-tbody>
+        </ui-table-->
+        <div style="height: 20px"></div>
+        <ui-config-table
+            scroll="{{200}}"
+            data="{{persons}}"
+            fields="{{fields}}"
+            selectable="multi"
+            on-select="handleSelect($event)">
+            <span slot="td">{{item[field.prop]}}</span>    
+        </ui-config-table>
+    </div>
+</template>
+<script>
+import {Table, THead, TFoot, TBody, TR, TD, TH, ConfigurableTable} from '../../src/components/Table';
+import Button from '../../src/components/Button';
+export default {
+    components: {
+        'ui-table': Table,
+        'ui-tr': TR,
+        'ui-th': TH,
+        'ui-td': TD,
+        'ui-tbody': TBody,
+        'ui-thead': THead,
+        'ui-tfoot': TFoot,
+        'ui-button': Button,
+        'ui-config-table': ConfigurableTable
+    },
+    initData() {
+        return {
+            persons: [
+                {
+                    name: 'erik',
+                    birthday: '1984-01-01',
+                    city: 'BeiJing',
+                    selected: true,
+                    phone: 111,
+                    email: 222
+                },
+                {
+                    name: 'otakustay',
+                    birthday: '1986-04-04',
+                    city: 'ShangHai',
+                    selected: false,
+                    phone: 111,
+                    email: 222
+                },
+                {
+                    name: 'firede',
+                    birthday: '1987-02-02',
+                    city: 'BeiJing',
+                    selected: true,
+                    phone: 111,
+                    email: 222,
+                    rowspan: 2
+                },
+                {
+                    name: 'leon',
+                    birthday: '1989-03-03',
+                    city: 'ShenZhen',
+                    selected: false,
+                    phone: 111,
+                    email: 222
+                },
+                {
+                    name: 'leon',
+                    birthday: '1989-03-03',
+                    city: 'ShenZhen',
+                    selected: false,
+                    phone: 111,
+                    email: 222
+                },
+                {
+                    name: 'leon',
+                    birthday: '1989-03-03',
+                    city: 'ShenZhen',
+                    selected: false,
+                    phone: 111,
+                    email: 222
+                },
+                {
+                    name: 'leon',
+                    birthday: '1989-03-03',
+                    city: 'ShenZhen',
+                    selected: false,
+                    phone: 111,
+                    email: 222
+                }
+            ],
+            fields: [
+                {
+                    title: '名字',
+                    prop: 'name'
+                },
+                {
+                    title: '城市',
+                    prop: 'city'
+                },
+                {
+                    title: '联系方式',
+                    prop: 'phone'
+                },
+                {
+                    title: '邮箱',
+                    prop: 'email'
+                },
+                {
+                    title: '生日',
+                    prop: 'birthday',
+                    content: function (item) {
+                        return item.birthday.replace(/-/g, '/');
+                    }
+                }
+            ]
+        };
+    },
+    handleSelect(e) {
+        console.log(e);
+    }
+}
+
+</script>

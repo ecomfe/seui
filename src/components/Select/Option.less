@@ -1,0 +1,17 @@
+@import (reference) "../../style/lib.less";
+@import (reference) "../../style/dropdown.less";
+
+.@{class-prefix}-option {
+    &:extend(._dux-dropdown-option all);
+
+    & &-checkmark {
+        float: right;
+        display: none;
+    }
+
+    [ui~="checkmark"] &-checkmark {
+        @height: @dux-height-normal / 2;
+        display: block;
+        margin-top: ~"calc(@{height} - .5em)";
+    }
+}

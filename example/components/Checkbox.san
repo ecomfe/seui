@@ -1,0 +1,128 @@
+<template>
+    <div class="checkbox-demo">
+        <p>
+            <dux-checkbox>是否</dux-checkbox>
+        </p>
+        <p>
+            <dux-checkbox ui="small">是否(小号)</dux-checkbox>
+        </p>
+        <p>
+            <dux-checkbox checked="{=checked=}">是否(小号)</dux-checkbox>
+            <span>{{checked}}</span>
+        </p>
+        <p>
+            <dux-checkbox checked="{=dynimicValueTrue=}">是否</dux-checkbox>
+            <span>{{dynimicValueTrue}}</span>
+        </p>
+        <p>
+            <dux-checkbox checked="{=dynimicValueFalse=}">是否</dux-checkbox>
+            <span>{{dynimicValueFalse}}</span>
+        </p>
+        <p>
+            <dux-checkbox
+                trueValue="true"
+                falseValue="false"
+                checked="{=customValue=}">自定义值</dux-checkbox>
+            <span>{{customValue}}</span>
+        </p>
+        <p>
+            <dux-checkbox
+                trueValue="yes"
+                checked="{=customValueOnlyOne=}">自定义值yes</dux-checkbox>
+            <span>{{customValueOnlyOne}}</span>
+        </p>
+        <p>
+            <dux-checkbox
+                disabled="{{true}}"
+                trueValue="yes"
+                checked="{=customValueOnlyOne=}">自定义值</dux-checkbox>
+            <span>{{customValueOnlyOne}}</span>
+        </p>
+        <p>
+            <dux-checkbox
+                readonly="{{true}}"
+                trueValue="yes"
+                checked="{=customValueOnlyOne=}">自定义值</dux-checkbox>
+            <span>{{customValueOnlyOne}}</span>
+        </p>
+        <p>
+            <dux-checkbox
+                trueValue="111"
+                checked="{=customValueIsEmpty=}">自定义值</dux-checkbox>
+            <span>{{customValueIsEmpty}}</span>
+        </p>
+        <p>
+            <dux-checkbox
+                indeterminate="{{true}}"
+                checked="{=indeterminateSituationFalse=}">自定义值</dux-checkbox>
+            <span>{{indeterminateSituationFalse}}</span>
+        </p>
+        <p>
+            <dux-checkbox
+                indeterminate="{{true}}"
+                checked="{=indeterminateSituationTrue=}">自定义值</dux-checkbox>
+            <span>{{indeterminateSituationTrue}}</span>
+        </p>
+        <p>
+            <dux-checkbox
+                indeterminate="{{true}}"
+                trueValue="yes"
+                falseValue="no"
+                checked="{=customValue=}">自定义值</dux-checkbox>
+            <span>{{customValue}}</span>
+        </p>
+        <p>
+            <dux-checkbox
+                indeterminate="{{dynimicSetIndeterminate}}"
+                trueValue="yes"
+                falseValue="no"
+                checked="{=customValue=}">动态设置indeterminate</dux-checkbox>
+            <span>{{customValue}}</span>
+        </p>
+    </div>
+</template>
+
+<script>
+import Checkbox from '../../src/components/Checkbox';
+export default {
+    components:{
+       'dux-checkbox':Checkbox
+    },
+    initData() {
+        return {
+            checked: true,
+            dynimicValueTrue: false,
+            dynimicValueFalse: true,
+            customValue: 'no',
+            customValueOnlyOne: 'yes',
+            customValueIsEmpty: '',
+            indeterminateSituationFalse: false,
+            indeterminateSituationTrue: true,
+            indeterminateSituationFalseValue: 'no',
+            indeterminateSituationTrueValue: 'yes',
+        };
+    },
+    attached() {
+        setTimeout(() => {
+            this.data.set('dynimicValueTrue', true);
+        }, 3000);
+        setTimeout(() => {
+            this.data.set('dynimicValueFalse', false);
+        }, 3000);
+        setTimeout(() => {
+            this.data.set('dynimicSetIndeterminate', true);
+        }, 3000);
+        this.watch('customValueOnlyOne', val => {
+            console.log(val);
+        });
+    },
+
+}
+</script>
+<style lang="less">
+    .checkbox-demo {
+        p {
+            margin-top: 15px;
+        }
+    }
+</style>

@@ -1,0 +1,56 @@
+
+@import "./variables.less";
+@class-prefix: dux;
+// FIXME less.js不支持 extend和mixin的时候带变量，因此这里只能写死
+
+// https://github.com/twbs/bootstrap/blob/e43f97304eac2b276c755267e29de70ae2ac7afd/scss/mixins/_screen-reader.scss#L6-L15
+.dux-invisible() {
+    position: absolute;
+    .size(1px);
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.dux-button-transition() {
+    transition-property: border-color, background-color, color;
+    transition-duration: .2s;
+}
+
+.dux-position-center(@x: 50%, @y: @x) {
+    @right: 100% - @x;
+    @bottom: 100% - @y;
+    .absolute(auto, @right, @bottom, auto);
+    transform: translate(@right, @bottom);
+}
+
+.dux-field-require() {
+    content: "*";
+    float: right;
+    margin-right: 8px;
+    color: @dux-alert-color-primary;
+}
+
+.dux-field-gap-error() {
+    position: absolute;
+    display: block;
+    margin: 0;
+    height: @dux-field-gap;
+    line-height: @dux-field-gap;
+    font-size: 12px;
+  
+    .dux-icon {
+        margin-top: ~"calc(@{dux-field-gap} / 2 - .5em)";
+    }
+  }
+
+.dux-make-table-row-height(@font-size: @dux-font-size-normal, @half-lead: 13px, @lines: 1) {
+    height: @half-lead * 2 + @font-size * @lines * 2;
+}
+
+.dux-overlay-shadow() {
+    box-shadow: 0 1px 4px fadeout(#000, 80%);
+}
+

@@ -1,0 +1,79 @@
+<template>
+    <div class="demo-progress">
+        <div class="demo-oper">
+            <p>
+                Progress <input type="number" value="{=initPercent=}" step="0.01">
+            </p>
+            <p>
+                <dux-btn on-click="handleTriggerErr">Trigger Error</dux-btn>
+                <dux-btn on-click="handleClearErr">Clear Error</dux-btn>
+            </p>
+        </div>
+        <div class="demo-progress">
+            <h2>线性进度条</h2>
+            <div class="line-container">
+                <dux-progress
+                    value="{{value}}"
+                    status="{=status=}"
+                    desc />
+            </div>
+            <h2>环型进度条</h2>
+            <dux-progress
+                value="{{value}}"
+                status="{=status=}"
+                decimalPlace="{{1}}"
+                type="circular" />
+            <h2>小型环型进度条</h2>
+            <dux-progress
+                ui="tiny"
+                type="circular"
+                value="{{value}}"
+                status="{=status=}"
+                desc />
+        </div>
+    </div>
+</template>
+
+<script>
+import Progress from '../../src/components/Progress';
+import Button from '../../src/components/Button';
+import Icon from '../../src/components/Icon';
+
+export default {
+    components: {
+        'dux-progress': Progress,
+        'dux-btn': Button,
+        'dux-icon': Icon
+    },
+    initData() {
+        return {
+            initPercent: 0.8,
+            status: 'active',
+            circleStatus: ''
+        }
+    },
+    computed: {
+        value() {
+            const initPercent = this.data.get('initPercent');
+            return Number(initPercent);
+        },
+        percent() {
+            let initPercent = parseFloat(this.data.get('initPercent'));
+            let percent = Math.floor(initPercent * 100);
+            return percent;
+        }
+    },
+    handleTriggerErr() {
+        this.data.set('status', 'alert');
+    },
+    handleClearErr() {
+        this.data.set('status', 'normal');
+    }
+}
+</script>
+
+<style lang="less">
+.line-container {
+    width: 250px;
+}
+</style>

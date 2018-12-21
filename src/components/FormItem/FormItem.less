@@ -1,0 +1,178 @@
+@import (reference) "../../style/lib.less";
+.@{class-prefix}-form-item {
+    vertical-align: top;
+    clear: both;
+
+    &-no-label::before {
+        content: "";
+        display: inline-block;
+        width: @dux-form-label-width;
+    }
+
+    & > * {
+        display: inline-block;
+        vertical-align: top; 
+    }
+
+    & > *:not([class*="dux-form-item-label"]) + * {
+        margin-left: 10px;
+    }
+
+    &-label {
+        // text-align: left;
+        // vertical-align: text-top;
+        // float: left;
+        // font-size: 14px;
+        // color: @dux-text-color-strong;
+        // line-height: 36px;
+        // padding-right: 12px;
+        // box-sizing: border-box;
+        // height: 36px;
+        // overflow: hidden;
+        height: @dux-height-normal;
+        width: @dux-form-label-width;
+        line-height: @dux-height-normal;
+    }
+
+    // &-label::before {
+    //     content: '*';
+    //     opacity: 0;
+    // }
+    &-label,
+    &-tip,
+    &-content {
+        .@{class-prefix}-icon {
+            vertical-align: top;
+            margin-top: ~"calc(@{dux-height-normal} / 2 - .5em)";
+        }
+    }
+
+    &-content {
+        display: inline-block;
+        position: static;
+        height: @dux-height-normal;
+        line-height: @dux-height-normal;
+        margin: 0 0 0 10px;
+        vertical-align: top;
+        color: @dux-alert-color;
+
+        & > * {
+            display: inline-block;
+            vertical-align: top; 
+        }
+
+        .@{class-prefix}-icon {
+            margin-right: 7px;
+        }
+
+        &-error.bottom-info,
+        &-help-text.bottom-info {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin: 0;
+        }
+
+        &-help-text {
+            color: @dux-text-color-weak;
+        }
+
+    }
+
+    &.is-error {
+        .@{class-prefix}-input,
+        .@{class-prefix}-textarea,
+        .@{class-prefix}-input-number {
+            border-color: @dux-error-color;
+        }
+    }
+
+    &.is-require > &-label::after {
+        .dux-field-require();
+    }
+
+    // &.is-require &-label::before {
+    //     content: '*';
+    //     color: @dux-alert-color-primary;
+    //     opacity: 1;
+    // }
+
+    // &-top {
+    //     .@{class-prefix}-form-item-label {
+    //         float: none;
+    //     }
+
+    //     .@{class-prefix}-form-item-content {
+    //         margin-left: 10px
+    //     }
+    // }
+
+    // &-right {
+    //     .@{class-prefix}-form-item-label {
+    //         text-align: right;
+    //     }
+
+    //     .@{class-prefix}-form-item-content {
+    //         margin-left: 10px
+    //     }
+    // }
+
+    &-tip {
+        height: @dux-height-normal;
+        line-height: @dux-height-normal;
+        margin-left: 10px;
+        color: @dux-text-color-weak;
+    }
+
+    &-tip + &-content {
+        .dux-field-gap-error();
+    }
+
+    &-label ~ &-tip + &-content {
+        margin-left: @dux-form-label-width;
+    }
+
+    &-label,
+    &-tip {
+        .@{class-prefix}-icon {
+            vertical-align: top;
+            margin-top: ~"calc(@{dux-height-normal} / 2 - .5em)";
+        }
+    }
+    .make-ui(@font-size, @box-size) {
+        font-size: @font-size;
+
+        .@{class-prefix}-form-item-label,
+        .@{class-prefix}-form-item-content,
+        .@{class-prefix}-form-item-tip,
+        .@{class-prefix}-form-item-span {
+            line-height: @box-size;
+
+            .@{class-prefix}-icon {
+                margin-top: ~"calc(@{box-size} / 2 - .5em)";
+            }
+        }
+
+        .@{class-prefix}-form-item-label,
+        .@{class-prefix}-form-item-content,
+        .@{class-prefix}-form-item-tip {
+            height: @box-size;
+        }
+    }
+    &[ui~="large"] {
+        .make-ui(@dux-font-size-large, @dux-height-large);
+    }
+
+    &[ui~="small"] {
+        .make-ui(@dux-font-size-small, @dux-height-small);
+    }
+
+    &[ui~="tiny"] {
+        .make-ui(@dux-font-size-small, @dux-height-tiny);
+    }
+
+    &[ui~="micro"] {
+        .make-ui(@dux-font-size-small, @dux-height-micro);
+    }
+}
+

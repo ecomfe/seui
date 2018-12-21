@@ -1,0 +1,190 @@
+<template>
+    <div>
+        <div class="demo">
+            <h2>默认样式:</h2>
+            <p>当前标签 <code>{{active}}</code></p>
+            <p>line</p>
+            <ui-tabs ui="large" value="{=active=}">
+                <ui-tab label="回答问题" value="answers"></ui-tab>
+                <ui-tab label="文章评论" value="articles"></ui-tab>
+                <ui-tab label="分享朋友圈" value="shares"></ui-tab>
+            </ui-tabs>
+            <ui-tabs value="{=active=}" class="tabs-extra-right">
+                <ui-tab label="回答问题" value="answers"></ui-tab>
+                <ui-tab label="文章评论" value="articles"></ui-tab>
+                <ui-tab label="分享朋友圈" value="shares"></ui-tab>
+                <div slot="extra">
+                    <ui-button ui="tiny">extra</ui-button>
+                </div>
+            </ui-tabs>
+            <ui-tabs ui="small" value="{=active=}">
+                <ui-tab label="回答问题" value="answers"></ui-tab>
+                <ui-tab label="文章评论" value="articles"></ui-tab>
+                <ui-tab label="分享朋友圈" value="shares"></ui-tab>
+            </ui-tabs>
+            <ui-tabs ui="tiny" value="{=active=}">
+                <ui-tab label="回答问题" value="answers"></ui-tab>
+                <ui-tab label="文章评论" value="articles"></ui-tab>
+                <ui-tab label="分享朋友圈" value="shares"></ui-tab>
+            </ui-tabs>
+
+            <p>card</p>
+            <ui-tabs value="{=active=}" type="card">
+                <ui-tab label="回答问题" value="answers"></ui-tab>
+                <ui-tab label="文章评论" value="articles"></ui-tab>
+                <ui-tab label="分享朋友圈" value="shares"></ui-tab>
+            </ui-tabs>
+        </div>
+
+        <div class="demo">
+            <h2>带有 disabled 属性的样式:</h2>
+            <ui-tabs value="{=active1=}">
+                <ui-tab label="标签1" value="tab1">
+                </ui-tab>
+                <ui-tab label="标签二" value="tab2">
+                </ui-tab>
+                <ui-tab label="标签三" value="tab3" disabled>
+                </ui-tab>
+                <ui-tab label="标签四" value="tab4">
+                </ui-tab>
+            </ui-tabs>
+
+            <ui-tabs value="{=active1=}" type="card">
+                <ui-tab label="标签1" value="tab1">
+                </ui-tab>
+                <ui-tab label="标签二" value="tab2">
+                </ui-tab>
+                <ui-tab label="标签三" value="tab3" disabled>
+                </ui-tab>
+                <ui-tab label="标签四" value="tab4">
+                </ui-tab>
+            </ui-tabs>
+        </div>
+
+        <div class="demo">
+            <h2>不设置动画切换的样式</h2>
+            <ui-tabs value="{=active2=}" animated="{{animated}}">
+                <ui-tab label="标签1" value="tab1">
+                    <p>tab1的内容</p>
+                </ui-tab>
+                <ui-tab label="标签二" value="tab2">
+                    <p>tab2的内容</p>
+                </ui-tab>
+                <ui-tab label="标签三" value="tab3">
+                    <p>tab3的内容</p>
+                </ui-tab>
+                <ui-tab label="标签四" value="tab4">
+                    <p>tab4的内容</p>
+                </ui-tab>
+            </ui-tabs>
+            <ui-tabs value="{=active2=}" animated="{{animated}}" type="card">
+                <ui-tab label="标签1" value="tab1">
+                    <p>tab1的内容</p>
+                </ui-tab>
+                <ui-tab label="标签二" value="tab2">
+                    <p>tab2的内容</p>
+                </ui-tab>
+                <ui-tab label="标签三" value="tab3">
+                    <p>tab3的内容</p>
+                </ui-tab>
+                <ui-tab label="标签四" value="tab4">
+                    <p>tab4的内容</p>
+                </ui-tab>
+            </ui-tabs>
+        </div>
+        <div class="demo">
+            <h2>on-change事件:</h2>
+            <p>已切换: <code>{{changeInfo}}</code></p>
+            <ui-tabs value="{=active3=}" on-change="handleTabsChange($event)">
+                <ui-tab label="标签1" value="tab1">
+                    <p>tab1的内容</p>
+                </ui-tab>
+                <ui-tab label="标签二" value="tab2">
+                    <p>tab2的内容</p>
+                </ui-tab>
+                <ui-tab label="标签三" value="tab3">
+                    <p>tab3的内容</p>
+                </ui-tab>
+                <ui-tab label="标签四" value="tab4">
+                    <p>tab4的内容</p>
+                </ui-tab>
+            </ui-tabs>
+        </div>
+        <div class="demo demo-add">
+            <h2>增删模式</h2>
+            <ui-tabs value="1"
+                on-remove="handleRemove($event)">
+                <ui-tab s-for="tab in tabList"
+                    label="{{tab.label}}"
+                    value="{{tab.value}}"
+                    removable/>
+                <div slot="extra">
+                    <ui-button on-click="addTab" >
+                        <ui-icon name="plus-circle-o"></ui-icon> 添加Tab
+                    </ui-button>
+                </div>
+            </ui-tabs>
+        </div>
+    </div>
+</template>
+
+<script>
+import Button from '../../src/components/Button';
+import Icon from '../../src/components/Icon';
+import Tabs from '../../src/components/Tabs/index';
+let Tab = Tabs.Tab;
+
+export default {
+    components: {
+        'ui-tabs': Tabs,
+        'ui-tab': Tab,
+        'ui-button': Button,
+        'ui-icon': Icon
+    },
+    initData() {
+        return {
+            active: 'answers',
+            active1: 'tab1',
+            active2: 'tab2',
+            active3: 'tab3',
+            animated: false,
+            changeInfo: '{value: tab2, label: 标签2, disabled: false}',
+            tabList: [
+                {label: '标签1', value: '1'},
+                {label: '标签2', value: '2'},
+                {label: '标签3', value: '3'},
+                {label: '标签4', value: '4'},
+            ]
+        };
+    },
+    handleTabsChange(nav) {
+        this.data.set('changeInfo', `{value: ${nav.value}, label: ${nav.label},disabled: ${nav.disabled}}`);
+    },
+    handleRemove({data, index}) {
+        this.data.removeAt('tabList', index);
+    },
+    addTab() {
+        let value = this.data.get('tabList').length + 1;
+        this.data.push('tabList', {
+            label: `标签${value}`,
+            value: value.toString()
+        });
+    }
+}
+</script>
+
+<style lang="less">
+    .demo {
+        .dux-tabs {
+            margin-bottom: 20px
+        }
+
+        .tabs-extra-right {
+            .dux-tabs-nav-extra {
+                position: absolute;
+                right: 0;
+                bottom: 1px;
+            }
+        }
+    }
+</style>

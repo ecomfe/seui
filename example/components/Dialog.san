@@ -1,0 +1,213 @@
+<template>
+    <div class="demo-dialog">
+        <p>
+            <ui-dialog modal="{{true}}" class="demo-dialog-standard-dialog"
+                open="{=modalDialogVisible=}"
+                closable="{{true}}"
+                title="Dialog Title">
+                <div>
+                    <p>content area</p>
+                    <ui-select overlayClass="test" options="{{options}}" placeholder="全部" clearable></ui-select>
+                </div>
+                <div slot="foot">
+                    <ui-button ui="primary" on-click="closeModal">OK</ui-button>
+                    <ui-button on-click="closeModal">CANCEL</ui-button>
+                </div>
+            </ui-dialog>
+            <ui-button ui="primary"
+                on-click="openModal">Open a model dialog box</ui-button>
+
+            <ui-dialog modal="{{false}}"
+                draggable="{{false}}"
+                open="{=nonModalDialogVisible=}"
+                title="Dialog Title">
+                <p>The content of the Dialog. You can use the default slot to override it.</p>
+                <div slot="foot">
+                    <ui-button ui="primary" on-click="closeNonModal">OK</ui-button>
+                    <ui-button on-click="closeNonModal">CANCEL</ui-button>
+                </div>
+            </ui-dialog>
+            <ui-button ui="primary"
+                on-click="openNonModal">Open a modeless dialog box</ui-button>
+        </p>
+        <p>
+            <ui-dialog modal="{{false}}" class="demo-dialog-standard-dialog"
+                draggable="{{true}}"
+                open="{=firstDraggable=}"
+                title="First Dialog Title">
+                <p>You can drag the dialog box in the viewport.</p>
+                <div slot="foot">
+                    <ui-button ui="primary" on-click="closeFirstDraggable">OK</ui-button>
+                    <ui-button on-click="closeFirstDraggable">CANCEL</ui-button>
+                </div>
+            </ui-dialog>
+            <ui-button ui="primary"
+                on-click="openFirst">Open first draggabel model dialog box</ui-button>
+
+            <ui-dialog modal="{{false}}"
+                draggable="{{true}}"
+                open="{=secondDraggable=}"
+                title="Second Dialog Title">
+                <p>You can drag the dialog box in the viewport.</p>
+                <div slot="foot">
+                    <ui-button ui="primary" on-click="closeSecondDraggable">OK</ui-button>
+                    <ui-button on-click="closeSecondDraggable">CANCEL</ui-button>
+                </div>
+            </ui-dialog>
+            <ui-button ui="primary"
+                on-click="openSecond">Open second modeless dialog box</ui-button>
+
+            <ui-dialog modal="{{false}}"
+                draggable="{{true}}"
+                open="{=resetDraggable=}"
+                s-ref="resetDialog"
+                title="Second Dialog Title">
+                <p>You can drag the dialog box in the viewport.</p>
+                <div slot="foot">
+                    <ui-button ui="primary" on-click="resetModal">reset</ui-button>
+                </div>
+            </ui-dialog>
+            <ui-button ui="alt"
+                on-click="openReset">Draggable dialog box with reset button</ui-button>
+        </p>
+        <p>
+            <ui-button
+                on-click="openInfo">info</ui-button>
+            <ui-button
+                on-click="openSuccess">success</ui-button>
+            <ui-button
+                on-click="openError">error</ui-button>
+            <ui-button s-ref="test" on-click="openTest">test</ui-button>
+        </p>
+        <section>
+            <ui-popover
+                class="test-popover"
+                s-ref="popover"
+                open="{=opentest=}"
+                anchorOrigin="bl"
+                targetOrigin="tl"
+                excludeSelf="{{false}}"
+                getAnchor="{{getAnchor}}">
+                <div s-ref="box" class="overlayBox">
+                    <ui-select overlayClass="test" options="{{options}}" placeholder="全部" clearable></ui-select>
+                </div>
+            </ui-popover>
+        </section>
+    </div>
+</template>
+<script>
+    import Dialog, {AlertManager} from '../../src/components/Dialog';
+    import Popover from '../../src/components/Popover';
+    import Select from '../../src/components/Select';
+    import Button from '../../src/components/Button';
+    export default {
+        initData() {
+            return {
+                modalDialogVisible: false,
+                nonModalDialogVisible: false,
+                options: [
+                    {
+                        label: '下拉选项1',
+                        value: 1
+                    },
+                    {
+                        label: '下拉选项下拉选项下拉选项22',
+                        value: 2
+                    },
+                    {
+                        label: '下拉选项3',
+                        value: 3
+                    },
+                    {
+                        label: '下拉选项4',
+                        value: 4
+                    }
+                ],
+                getAnchor: this.getAnchor.bind(this),
+                opentest: false
+            };
+        },
+
+        components: {
+            'ui-button': Button,
+            'ui-select': Select,
+            'ui-dialog': Dialog,
+            'ui-popover': Popover
+        },
+
+        attached() {},
+
+        closeNonModal() {
+            this.data.set('nonModalDialogVisible', false);
+        },
+        closeModal() {
+            this.data.set('modalDialogVisible', false);
+        },
+        openNonModal() {
+            this.data.set('nonModalDialogVisible', true);
+        },
+        openModal() {
+            this.data.set('modalDialogVisible', true);
+        },
+        openFirst() {
+            this.data.set('firstDraggable', true);
+        },
+        openSecond() {
+            this.data.set('secondDraggable', true);
+        },
+        resetModal() {
+            this.ref('resetDialog').reset();
+        },
+        openReset() {
+            this.data.set('resetDraggable', true);
+        },
+        closeFirstDraggable() {
+            this.data.set('firstDraggable', false);
+        },
+        closeSecondDraggable() {
+            this.data.set('secondDraggable', false);
+        },
+        openInfo() {
+            AlertManager.info('Message', 'You got a message', dialog => {
+                console.log('关闭消息');
+                dialog.data.set('open', false)
+            });
+        },
+        openSuccess() {
+            AlertManager.success('Message', 'You got a message', dialog => dialog.data.set('open', false));
+        },
+        openError() {
+            AlertManager.error('Message', 'You got a message', dialog => dialog.data.set('open', false));
+        },
+        openTest() {
+            this.data.set('opentest', true);
+        },
+        getAnchor() {
+            return this.ref('test').el;
+        }
+    }
+</script>
+<style lang="less">
+    .demo-dialog-standard-dialog .dux-dialog-content {
+        width: 540px;
+        &-body {
+            border: 1px dashed #999;
+            height: 280px;
+            p {
+                color: #999;
+                text-align: center;
+                margin-top: 120px;
+            }
+        }
+    }
+    .dux-popover-box.test {
+        z-index: 1000
+    }
+    .overlayBox {
+        width: 300px;
+        height: 100px;
+        padding: 100px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+    }
+</style>

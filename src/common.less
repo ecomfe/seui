@@ -1,0 +1,142 @@
+// Overriding est variables
+@import (reference) "./style/lib.less";
+
+@support-ie-version: 9;
+@default-text-color: @dux-text-color-normal;
+@default-base-font-family: @dux-font-family;
+@default-heading-font-family: @dux-font-family;
+@default-border-radius: 2px;
+
+.global-normalize();
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+    font-weight: @dux-font-weight-normal;
+}
+
+// only enable on Retina displays
+@media screen and (min-resolution: 2dppx) {
+    html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: @dux-font-weight-bold;
+}
+
+input,
+button,
+textarea {
+    font: inherit;
+    font-weight: inherit;
+    color: inherit;
+}
+
+button {
+    border-radius: 0;
+}
+
+.@{class-prefix}-disabled {
+    cursor: not-allowed !important;
+}
+
+.@{class-prefix}-sr-only {
+    .dux-invisible();
+}
+
+a {
+    text-decoration: none;
+}
+
+a,
+[ui~="link"],
+.@{class-prefix}-button[ui~="link"] {
+    cursor: pointer;
+    color: @dux-link-color-normal;
+
+    &:focus {
+        outline: none;
+    }
+
+    &[ui~="primary"] {
+        color: @dux-link-color-strong;
+    }
+
+    &:hover,
+    &.focus-visible {
+        color: @dux-link-color-hover;
+    }
+
+    &:active {
+        color: @dux-link-color-active;
+    }
+
+    &[ui~="aux"] {
+        color: @dux-text-color-weak;
+
+        &:hover,
+        &.focus-ring {
+            color: @dux-text-color-normal;
+            text-decoration: underline;
+        }
+
+        &:active {
+            color: @dux-alert-color-1;
+        }
+    }
+
+    &[ui~="alert"] {
+        color: @dux-alert-color;
+
+        &:hover,
+        &.focus-visible {
+            color: @dux-alert-color-2;
+            text-decoration: underline;
+        }
+
+        &:active {
+            color: @dux-alert-color-1;
+        }
+    }
+
+    &[ui~="success"] {
+        color: @dux-success-color;
+
+        &:hover,
+        &.focus-visible {
+            color: @dux-success-color-2;
+            text-decoration: underline;
+        }
+
+        &:active {
+            color: @dux-success-color-1;
+        }
+    }
+
+    &[ui~="warning"] {
+        color: @dux-warning-color;
+
+        &:hover,
+        &.focus-visible {
+            color: @dux-warning-color-2;
+            text-decoration: underline;
+        }
+
+        &:active {
+            color: @dux-warning-color-1;
+        }
+    }
+}

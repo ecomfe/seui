@@ -1,0 +1,69 @@
+<template>
+    <div class="demo-regionpicker">
+        <div class="regionpicker-title">地域选择</div>
+        <div>
+            <h3>品牌数据源</h3>
+            <section><input type="text" value="{=selected=}"></section>
+            <section>已选地区：{{selected1}}</section>
+        </div>
+        <div>
+            <p>默认无选中项</p>
+            <dux-region-picker on-change="handleChange($event)" selected="{{selected1}}" datasource="{{regions1}}"></dux-region-picker>
+        </div>
+        <div>
+            <p>默认有选中项</p>
+            <dux-region-picker datasource="{{regions2}}" selected="{{selected2}}"></dux-region-picker>
+        </div>
+    </div>
+</template>
+
+<script>
+    import RegionPicker from '../../src/components/RegionPicker';
+    import {
+        REGIONS_BRAND,
+        REGIONS_CLB
+    } from '../../static/regiondata.js';
+    export default {
+        initData() {
+            return {
+                regions1: REGIONS_BRAND,
+                regions2: REGIONS_CLB,
+                selected2: ['206', '214']
+            };
+        },
+
+        components: {
+            'dux-region-picker': RegionPicker
+        },
+
+        attached() {
+            this.watch('selected', val => {
+                this.data.set('selected1', val);
+            });
+        },
+
+        messages: {
+            'MESSAGE-OUTPUT': function (arg) {
+                let value = arg.value;
+                let ids;
+                if (!value.length) {
+                    ids = '';
+                }
+                ids = value.join(', ');
+                // this.data.set('selected1', ids);
+            }
+        },
+
+        handleChange(e) {
+            console.log('e', e);
+        }
+
+    };
+</script>
+<style lang="less">
+    .demo-regionpicker {
+        p {
+            margin-top: 16px;
+        }
+    }
+</style>

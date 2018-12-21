@@ -1,0 +1,242 @@
+<template><div class="demo-upload">
+    <article>
+        <h1><code>&lt;ui-uploader&gt;</code></h1>
+        <h2>图片上传模式，上传进度以文字百分比显示</h2>
+        <h3>{{files0.src}}</h3>
+        <ui-uploader 
+            type="image"
+            name="file"
+            value="{=files0=}"
+            action="/upload"
+            max-count="{{1}}"
+            max-size="100mb"
+            accept=".jpg,.jpeg,.gif"
+            ui="horizontal"
+            payload="{{payload}}"
+            progress="number"
+            on-success="onSuccess"
+            on-failure="onFailure"
+            on-change="handleChange"
+            on-statuschange="handleStatusChange">
+            <template slot="desc">
+                请选择jpg,jpeg,gif图片，大小在10M以内，最多上传3张图
+            </template>
+        </ui-uploader>
+        <h2>图片上传模式，上传进度以进度条显示</h2>
+        <ui-uploader 
+            type="image"
+            name="file"
+            value="{{files}}"
+            max-count="{{3}}"
+            request-mode="custom"
+            max-size="{{10mb}}"
+            accept=".jpg,.jpeg,.gif"
+            payload="{{payload}}"
+            ui="horizontal"
+            progress="bar"
+            on-success="onSuccess"
+            on-remove="handleRemove"
+            on-failure="onFailure"
+            on-change="handleChange()"
+            on-statuschange="handleStatusChange"
+            upload="{{upload}}">
+            <template slot="desc">请选择jpg,jpeg,gif图片，大小在10M以内，最多上传3张图</template>
+        </ui-uploader>
+        <h2>图片上传模式，增加额外操作按钮可以直接输入图片地址</h2>
+        <ui-uploader 
+            type="image"
+            name="file"
+            action="/upload"
+            value="{{files}}"
+            max-count="{{3}}"
+            max-size="10mb"
+            accept=".jpg,.jpeg,.gif"
+            payload="{{payload}}"
+            ui="horizontal"
+            progress="bar"
+            on-success="onSuccess"
+            on-failure="onFailure"
+            on-change="handleChange('filesExtra')"
+            on-statuschange="handleStatusChange"
+            class="extra-operation">
+            <template slot="desc">请选择jpg,jpeg,gif图片，大小在10M以内，最多上传3张图</template>
+            <template slot="extra-operation">
+                <ui-button class="extra-operation-button"
+                on-click="openTooltip(file, $event)"
+                s-ref="add-image-button">输入图片地址</ui-button>
+            </template>
+        </ui-uploader>
+        <h2>文件上传模式</h2>
+        <ui-uploader
+            name="file"
+            action="/upload"
+            max-count="{{3}}"
+            value="{{files}}"
+            max-size="10mb"
+            accept=".jpg,.jpeg,.gif"
+            payload="{{payload}}"
+            ui="horizontal"
+            progress="number"
+            on-success="onSuccess"
+            on-failure="onFailure"
+            on-change="handleChange()"
+            on-statuschange="handleStatusChange">
+            <template slot="desc">请选择jpg,jpeg,gif图片，大小在10M以内，只能上传3张图</template>
+        </ui-uploader>
+        <ui-tooltip interactive target="{{tooltipTarget}}" anchorOrigin="top" open="{=tooltipOpen=}" trigger="click">
+            <div class="extra-url">
+                <span class="dux-span">图片地址：</span><ui-input value="{=imageSrc=}"></ui-input>
+                <ui-button on-click="addImage">确定</ui-button>
+            </div>
+        </ui-tooltip>
+    </article>
+</div></template>
+
+<script>
+import Upload from '../../src/components/Upload';
+import Button from '../../src/components/Button';
+import Tooltip from '../../src/components/Tooltip';
+import Input from '../../src/components/Input';
+import {assign} from 'lodash';
+export default {
+
+    components: {
+        'ui-uploader': Upload,
+        'ui-button': Button,
+        'ui-tooltip': Tooltip,
+        'ui-input': Input
+    },
+
+    initData() {
+        let files = [
+            {
+                name: 'demo-file1.jpg',
+                src: 'https://www.baidu.com/img/bd_logo1.png',
+                extraInfo: 123
+            },
+            {
+                name: 'demo-file2.gif',
+                src: 'http://nodejs.cn/static/images/logo.svg',
+                extraInfo: 128
+            }
+        ];
+
+        return {
+            files0: [{
+                name: 'demo-file1.jpg',
+                src: 'https://www.baidu.com/img/bd_logo1.png'
+            }],
+            files,
+            files1: files.slice(0),
+            files2: files.slice(0),
+            filesExtra: files.slice(0),
+            filesIframe: {name: 'demo-file.txt', src: 'http://www.baidu.com'},
+            payload: {
+                year: '2017',
+                month: '4'
+            },
+            currentImage: null,
+            imageSrc: null,
+            tooltipTarget: null,
+            tooltipOpen: false,
+            upload: (file, {onload, onprogress, onerror}) => {
+                // onload(file: Object, data: Object)
+                // onprogress(file: Object, progress: Object({loaded, total}))
+                // onerror(file: Object, error: Object({reason}))
+                let xhr = new XMLHttpRequest();
+                file.xhr = xhr;
+                console.log(onload);
+                xhr.upload.onprogress = e => onprogress(file, e);
+                xhr.onload = () => onload(file, JSON.parse(xhr.responseText));
+                xhr.onerror = e => onerror(file, e);
+                let formData = new FormData();
+                formData.append('file', file);
+
+                xhr.open('POST', '/upload', true);
+                xhr.send(formData);
+            }
+        };
+    },
+
+    attached() {
+        this.watch('files0', val => {
+            console.log(val);
+        });
+    },
+    onSuccess(data) {
+        console.log('Success event: ', data);
+    },
+    onFailure(data) {
+        console.log('Failure event: ', data);
+    },
+    handleChange(name) {
+        console.log('Change event: ', name);
+    },
+    handleRemove(event, index) {
+        console.log(event);
+        console.log(index);
+    },
+    handleStatusChange(status) {
+        console.log('Total status is: ', status);
+    },
+    convertResponse(data) {
+        return assign({
+            status: data.code ? 'failure' : 'success'
+        }, data.result);
+    },
+    openTooltip(file, e) {
+        console.log(file);
+        this.data.set('tooltipTarget', e.target);
+        this.data.set('tooltipOpen', true);
+    },
+    addImage() {
+        if (this.currentImage.index !== undefined) {
+            this.$set(this.filesExtra, this.currentImage.index, {src: this.imageSrc});
+        }
+        else {
+            this.filesExtra.push({src: this.imageSrc});
+        }
+        this.currentImage = null;
+        this.imageSrc = null;
+        this.tooltipOpen = false;
+    }
+};
+</script>
+
+<style lang="less">
+@import (reference) "../../src/style/lib.less";
+.extra-operation {
+    label.dux-button {
+        position: absolute!important;
+        top: auto!important;
+        right: 50%!important;
+        bottom: 70%!important;
+        left: auto!important;
+        -ms-transform: translate(50%,70%)!important;
+        transform: translate(50%,70%)!important;
+    }
+
+    .dux-button.extra-operation-button {
+        width: 120px;
+        padding: 0;
+        height: 28px;
+        line-height: 26px;
+        position: absolute;
+        top: auto;
+        right: 50%;
+        bottom: 30%;
+        left: auto;
+        transform: translate(50%,30%);
+    }
+}
+
+.extra-url {
+    & > * {
+        vertical-align: middle;
+    }
+
+    .veui-button {
+        margin-left: 5px;
+    }
+}
+</style>

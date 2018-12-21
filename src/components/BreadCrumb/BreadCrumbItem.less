@@ -1,0 +1,29 @@
+@import (reference) "../../style/lib.less";
+
+.@{class-prefix}-breadcrumb-item {
+    float: left;
+    color: @dux-text-color-strong;
+
+    &:last-child {
+        .@{class-prefix}-breadcrumb-separator {
+            display: none;
+        }
+    }
+
+    &-current {
+        font-weight: @dux-font-weight-bold;
+    }
+
+    & span,
+    & a {
+        display: inline-block;
+        vertical-align: top;
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .@{class-prefix}-icon {
+        vertical-align: middle;
+    }
+}

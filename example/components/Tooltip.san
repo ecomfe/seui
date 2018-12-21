@@ -1,0 +1,169 @@
+<template>
+    <div>
+        <div class="demo-wrap">
+            <label>click触发</label>
+            <div class="box">
+                <div class="top">
+                    <ui-button ui="aux" on-click="show($event, 'top left')">上左</ui-button>
+                    <ui-button ui="aux" on-click="show($event, 'top')">上边</ui-button>
+                    <ui-button ui="aux" on-click="show($event, 'top right')">上右</ui-button>
+                </div>
+                <div class="left">
+                    <ui-button ui="aux" on-click="show($event, 'left top')">左上</ui-button>
+                    <ui-button ui="aux" on-click="show($event, 'left')">左边</ui-button>
+                    <ui-button ui="aux" on-click="show($event, 'left bottom')">左下</ui-button>
+                </div>
+                <div class="right">
+                    <ui-button ui="aux" on-click="show($event, 'right top')">右上</ui-button>
+                    <ui-button ui="aux" on-click="show($event, 'right')">右边</ui-button>
+                    <ui-button ui="aux" on-click="show($event, 'right bottom')">右下</ui-button>
+                </div>
+                <div class="bottom">
+                    <ui-button ui="aux" on-click="show($event, 'bottom left')">下左</ui-button>
+                    <ui-button ui="aux" on-click="show($event, 'bottom')">下边</ui-button>
+                    <ui-button ui="aux" on-click="show($event, 'bottom right')">下右</ui-button>
+                </div>
+            </div>
+            <ui-tooltip open="{=open=}" anchorOrigin="{{anchorOrigin}}" target="{{target}}">
+                这是一个提醒
+            </ui-tooltip>
+        </div>
+
+        <div class="demo-wrap">
+            <label>hover触发</label>
+            <div class="box">
+                <div class="top">
+                    <div class="dux-button-wrap">
+                        <ui-button ui="aux" on-mouseenter="native:show2($event, 'top left')">上左</ui-button>
+                    </div>
+                    <div class="dux-button-wrap" >
+                        <ui-button ui="aux" on-mouseenter="native:show2($event, 'top')">上边</ui-button>
+                    </div>
+                    <div class="dux-button-wrap">
+                        <ui-button ui="aux" on-mouseenter="native:show2($event, 'top right')">上右</ui-button>
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="dux-button-wrap" >
+                        <ui-button ui="aux" on-mouseenter="native:show2($event, 'left top')">左上</ui-button>
+                    </div>
+                    <div class="dux-button-wrap" >
+                        <ui-button ui="aux" on-mouseenter="native:show2($event, 'left')">左边</ui-button>
+                    </div>
+                    <div class="dux-button-wrap">
+                        <ui-button ui="aux" on-mouseenter="native:show2($event, 'left' bottom)">左下</ui-button>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="dux-button-wrap">
+                        <ui-button ui="aux" on-mouseenter="native:show2($event, 'right top')">右上</ui-button>
+                    </div>
+                    <div class="dux-button-wrap">
+                        <ui-button ui="aux" on-mouseenter="native:show2($event, 'right')">右边</ui-button>
+                    </div>
+                    <div class="dux-button-wrap">
+                        <ui-button ui="aux" on-mouseenter="native:show2($event, 'right bottom')">右下</ui-button>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <div class="dux-button-wrap">
+                        <ui-button ui="aux" on-mouseenter="native:show2($event, 'bottom left')">下左</ui-button>
+                    </div>
+                    <div class="dux-button-wrap">
+                        <ui-button ui="aux" on-mouseenter="native:show2($event, 'bottom')">下边</ui-button>
+                    </div>
+                    <div class="dux-button-wrap">
+                        <ui-button ui="aux" on-mouseenter="native:show2($event, 'bottom right')">下右</ui-button>
+                    </div>
+                </div>
+            </div>
+            <ui-tooltip open="{=open2=}" ui="alt" mode="hover" anchorOrigin="{{anchorOrigin}}" target="{{target}}">
+                {{content}}
+            </ui-tooltip>
+        </div>
+    </div>
+</template>
+<script>
+import Button from '../../src/components/Button';
+import Tooltip from '../../src/components/Tooltip';
+export default {
+    components: {
+        'ui-button': Button,
+        'ui-tooltip': Tooltip
+    },
+
+    initData() {
+        return {
+            open: false,
+            content: '这是一个\n提醒'
+        };
+    },
+
+    show(event, pos) {
+        this.data.set('anchorOrigin', pos);
+        this.data.set('target', event.target);
+        this.data.set('open', true);
+    },
+
+    show2(event, pos) {
+        this.data.set('anchorOrigin', pos);
+        this.data.set('target', event.target);
+        this.data.set('open2', true);
+    }
+
+
+}
+</script>
+<style lang="less">
+.demo-wrap {
+    margin-top: 30px;
+    width: 500px;
+    height: 300px;
+    padding: 30px;
+    border: 1px solid #ccc;
+}
+.box {
+    position: relative;
+}
+.top,
+.bottom {
+    width: 100%;
+    clear: both;
+    // text-align: center;
+}
+.left {
+    width: 100px;
+    float: left;
+}
+.right {
+    width: 100px;
+    float: right;
+}
+.dux-button-wrap {
+    display: inline-block;
+}
+.top .dux-button-wrap,
+.bottom .dux-button-wrap {
+    margin-right: 10px;
+    &:first-of-type {
+        margin-left: 85px
+    }
+}
+
+.left .dux-button-wrap,
+.right .dux-button-wrap {
+    margin-bottom: 10px;
+}
+
+.top > .dux-button,
+.bottom > .dux-button {
+    margin-right: 10px;
+    &:first-of-type {
+        margin-left: 85px
+    }
+}
+.left > .dux-button,
+.right > .dux-button {
+    margin-bottom: 10px;
+}
+</style>

@@ -1,0 +1,103 @@
+@import (reference) "./lib.less";
+// FIXME less.js不支持 extend和mixin的时候带变量，因此这里只能写死
+
+._dux-dropdown-overlay {
+    border: 1px solid @dux-gray-color-6;
+    margin: 3px 0;
+    .dux-overlay-shadow();
+}
+
+._dux-dropdown-button {
+    & &-button {
+        width: 100%;
+        .padding(_, 10px);
+        text-align: left;
+    }
+
+    &-label {
+        display: inline-block;
+        max-width: ~"calc(100% - 24px)";
+        width: 100%;
+        .ellipsis();
+    }
+
+    &-icon {
+        float: right;
+    }
+
+    &-button[ui~="primary"]:not(.state-loading):disabled {
+        background-color: @dux-gray-color-7;
+        border-color: transparent;
+        color: @dux-text-color-aux;
+    }
+
+    &-expanded &-button:not([ui~="link"]) {
+        &,
+        &:hover,
+        &.focus-visible {
+            color: @dux-text-color-strong;
+            background-color: @dux-gray-color-8;
+        }
+    }
+
+    &-expanded &-button[ui~="primary"]:not([ui~="link"]) {
+        &,
+        &:hover,
+        &.focus-visible {
+            background-color: @dux-brand-color-2;
+            color: #fff;
+        }
+
+        &:active {
+            background-color: @dux-brand-color-1;
+        }
+    }
+
+    &-expanded &-button[ui~="alt"] {
+        &,
+        &:hover,
+        &.focus-ring {
+            background-color: @dux-gray-color-6;
+        }
+    }
+}
+
+._dux-dropdown-option {
+    .dux-button-transition();
+    .centered-line(@dux-height-normal);
+    .ellipsis();
+    display: block;
+    width: 100%;
+    background-color: #fff;
+    border: none;
+    padding: 0 10px;
+    color: @dux-text-color-normal;
+    text-align: left;
+    outline: none;
+    cursor: pointer;
+
+    &.focus-visible,
+    &:hover {
+        background-color: @dux-gray-color-8;
+    }
+
+    &:active {
+        background-color: @dux-gray-color-6;
+    }
+
+    &-selected {
+        color: @dux-text-color-strong;
+        font-weight: @dux-font-weight-bold;
+    }
+
+    &-disabled {
+        background-color: #fff;
+        color: @dux-text-color-weak;
+        cursor: not-allowed;
+    }
+
+    &-label {
+        float: left;
+        margin-right: 10px;
+    }
+}

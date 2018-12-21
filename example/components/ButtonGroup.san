@@ -1,0 +1,62 @@
+<template>
+    <article>
+        <section class="button-group-demo">
+            <ui-button-group ui="primary large" items="{{items1}}" disabled="{{false}}"></ui-button-group>
+        </section>
+        <section class="button-group-demo">
+            <ui-button-group items="{{items2}}" disabled="{{false}}"></ui-button-group>
+        </section>
+        <section class="button-group-demo">
+            <ui-button-group ui="aux small" items="{{items3}}" disabled="{{false}}"></ui-button-group>
+        </section>
+        <section class="button-group-demo">
+            <ui-button-group ui="alt tiny" items="{{items4}}" disabled="{{true}}"></ui-button-group>
+        </section>
+        <section class="button-group-demo">
+            <ui-button-group ui="alt micro" items="{{items4}}" disabled="{{false}}"></ui-button-group>
+        </section>
+    </article>
+</template>
+<script>
+import Button from '../../src/components/Button';
+import ButtonGroup from '../../src/components/ButtonGroup';
+
+export default {
+    initData() {
+        return {
+            items1: [
+                {label: '新建', event: 'add'},
+                {label: '编辑', event: 'edit'},
+                {label: '删除', event: 'remove'}
+            ],
+            items2: [
+                {label: '新建', event: 'add', disabled: true},
+                {label: '编辑', event: 'edit'},
+                {label: '删除', event: 'remove'}
+            ],
+            items3: [
+                {label: '新建', event: 'add', disabled: true},
+                {label: '编辑', event: 'edit'},
+                {label: '删除', event: 'remove'}
+            ],
+            items4: [
+                {label: '新建', event: 'add', disabled: true},
+                {label: '编辑', event: 'edit'},
+                {label: '删除', event: 'remove'}
+            ]
+        };
+    },
+
+    components: {
+        'ui-button': Button,
+        'ui-button-group': ButtonGroup
+    },
+
+    attached() {}
+};
+</script>
+<style lang="less">
+.button-group-demo {
+    margin-bottom: 10px;
+}
+</style>

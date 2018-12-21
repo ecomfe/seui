@@ -1,0 +1,158 @@
+@import (reference) "../../style/lib.less";
+@import (reference) "../../style/input.less";
+
+
+.@{class-prefix}-input {
+
+    @left-padding: 10px;
+
+    .make-line-height(@height) {
+        height: @height;
+        line-height: @height - 2px;
+    }
+
+    overflow: hidden;
+    display: inline-table;
+    position: relative;
+    .make-line-height(@dux-height-normal);
+    width: @dux-width-normal;
+    border: 1px solid @dux-gray-color-5;
+    background-color: #fff;
+    color: @dux-text-color-normal;
+    transition: border-color @dux-transition-duration, color @dux-transition-duration;
+
+    &-autofill {
+        background-color: #faffbd;
+    }
+
+    .@{class-prefix}-form-item > & {
+        display: inline-table;
+    }
+
+    &-hidden {
+        display: none !important;
+    }
+
+    &-before,
+    &-main,
+    &-clear,
+    &-after {
+        display: table-cell;
+        vertical-align: top;
+        height: 100%;
+    }
+
+    &-clear {
+        &.hidden {
+            display: none
+        }
+    }
+
+    &-main {
+        width: 100%;
+    }
+
+    &-input {
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        padding: 0 @left-padding;
+        background-color: transparent;
+        text-overflow: ellipsis;
+    }
+
+    &-clear {
+        padding-right: 12px;
+
+        &-button {
+            width: 1em;
+            height: 1em;
+            padding: 0;
+            vertical-align: ~"calc(-50% + .5em)";
+            vertical-align: ~"-3px\9\0";
+            border: none;
+            background-color: transparent;
+            color: @dux-text-color-normal;
+            outline: none;
+            cursor: unset;
+
+            &.focus-visible {
+                color: @dux-text-color-strong;
+            }
+        }
+
+        .@{class-prefix}-icon {
+            cursor: pointer;
+            vertical-align: top;
+
+            &:hover {
+                color: @dux-text-color-strong;
+            }
+        }
+    }
+
+    &.@{class-prefix}-input-invalid {
+        &:extend(._dux-input-invalid all);
+    }
+
+    &:hover,
+    &-focused {
+        border-color: @dux-gray-color-3;
+    }
+
+    &-focused {
+        color: @dux-text-color-strong;
+    }
+
+    &.@{class-prefix}-readonly,
+    &.@{class-prefix}-disabled {
+        background-color: @dux-gray-color-8;
+
+        &,
+        &:hover {
+            border-color: @dux-gray-color-5;
+            color: @dux-text-color-weak;
+        }
+    }
+
+    &.@{class-prefix}-disabled {
+        &,
+        & .@{class-prefix}-input-input {
+            cursor: not-allowed;
+        }
+    }
+
+    &-placeholder {
+        position: absolute;
+        padding-left: @left-padding;
+        color: @dux-text-color-weak !important;
+        pointer-events: none;
+        cursor: text;
+        &.hidden {
+            display: none;
+        }
+    }
+
+    &[ui~="large"] {
+        .make-line-height(@dux-height-large);
+        font-size: @dux-font-size-large;
+    }
+
+    &[ui~="small"] {
+        .make-line-height(@dux-height-small);
+        font-size: @dux-font-size-small;
+    }
+
+    &[ui~="tiny"] {
+        .make-line-height(@dux-height-tiny);
+        font-size: @dux-font-size-small;
+    }
+
+    &[ui~="micro"] {
+        .make-line-height(@dux-height-micro);
+        font-size: @dux-font-size-small;
+    }
+}

@@ -1,0 +1,112 @@
+<template>
+    <div class="demo-input-warp">
+        <h2>Input</h2>
+        <h4>5种尺寸</h4>
+        <div>
+            <dux-input readonly ui="micro" on-input="handleInput" on-change="handleChange" value="{=poem=}" placeholder="micro"></dux-input>
+        </div>
+        <div>
+            <dux-input ui="tiny" value="{=poem=}" placeholder="tiny"></dux-input>
+        </div>
+        <div>
+            <dux-input ui="small" value="{=poem=}" placeholder="small"></dux-input>
+        </div>
+        <div>
+            <dux-input value="{=poem=}" placeholder="normal"></dux-input>
+        </div>
+        <div>
+            <dux-input ui="large" disabled value="{=poem=}" placeholder="large"></dux-input>
+        </div>
+
+        <h4>事件以及功能展示</h4>
+        <h3>{{name}}</h3>
+        <div class="item">
+            <dux-input value="{=name=}"></dux-input>
+            <dux-input value="{=name=}" readonly></dux-input>
+            <dux-input value="{=name=}" disabled="{{true}}"></dux-input>
+        </div>
+        <div class="item">
+            <dux-input value="{=school=}" placeholder="请输入学校"></dux-input>
+        </div>
+        <div class="item">
+            <dux-input value="{=school=}" clearable placeholder="clearable"></dux-input>
+        </div>
+        <div class="item">
+            <dux-input select-on-focus value="{=school=}" placeholder="autofocus"></dux-input>
+        </div>
+        <div class="item">
+            <dux-input autofocus type="password" value="{=password=}" placeholder="password"></dux-input>
+        </div>
+        <div class="item">
+            <span>一个隐藏的input</span>
+            <dux-input type="hidden" value="{=school=}" clearable placeholder="clearable"></dux-input>
+        </div>
+        <h4>After Slot</h4>
+        <dux-input
+            clearable
+            class="input-nudge">
+            <template slot="after">元</template>
+        </dux-input>
+    </div>
+</template>
+
+<script>
+import Input from '../../src/components/Input';
+
+export default {
+    components: {
+       'dux-input': Input
+    },
+    initData() {
+        return {
+            poem: '兩岸猿聲啼不住，輕舟已過萬重山，飞雪连天射白鹿，笑书神侠倚碧鸳',
+            name: 'wangbign11',
+            school: '五中',
+            maxlength: ''
+        };
+    },
+    attached() {
+        setTimeout(() => {
+            // this.data.set('poem', '湖人总冠军');
+        }, 2000);
+    },
+    handleKeyup(e) {
+        console.log('handleKeyup');
+    },
+    handleKeyupEnter(e) {
+        console.log('handleKeyupEnter');
+    },
+    handleKeypress(e) {
+        console.log('handleKeypress');
+    },
+    handleKeydown(e) {
+        console.log('handleKeydown');
+    },
+    handleFocus(e) {
+        console.log('handleFocus');
+    },
+    handleBlur(e) {
+        console.log('handleBlur');
+    },
+    handleInput(e) {
+        console.log('handleInput');
+    },
+    handleChange(e) {
+        console.log('handleChange');
+    }
+};
+</script>
+
+<style lang="less">
+.demo-input-warp {
+    .dux-input {
+        width: 280px;
+    }
+    .item {
+        margin-top: 20px;
+    }
+    .dux-input-after {
+        padding-right: 5px;
+    }
+}
+</style>

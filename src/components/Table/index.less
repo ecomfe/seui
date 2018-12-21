@@ -1,0 +1,208 @@
+@import (reference) "../../style/lib.less";
+
+.@{class-prefix}-table {
+    color: @dux-text-color-normal;
+
+    table {
+        table-layout: fixed;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    &-fix-header {
+        position: relative;
+        margin-bottom: -1px;
+        border-bottom: 1px solid @dux-gray-color-7;
+    }
+
+    &-fix-footer {
+        margin-top: -1px;
+        border-top: 1px solid @dux-gray-color-7;
+    }
+
+    &-fixed-header + &-main {
+        overflow: auto;
+    }
+
+    &-cell {
+        display: inline-block;
+        line-height: 2;
+        vertical-align: middle;
+    }
+    // 没有引入col-group标签情况下的兼容选项
+    &.state-selectable {
+        tr {
+            td:first-child {
+                width: 60px;
+            }
+        }
+    }
+
+    &.state-expandable {
+        tr {
+            td:first-child {
+                width: 24px;
+            }
+        }
+    }
+
+    th,
+    td {
+        .dux-make-table-row-height();
+        .padding(_, 16px);
+        text-align: left;
+        white-space: nowrap;
+        transition: background-color @dux-transition-duration;
+    }
+
+    th {
+        font-weight: @dux-font-weight-bold;
+    }
+
+    td {
+        border: 1px solid @dux-gray-color-7;
+        border-style: solid none;
+    }
+
+    tfoot th {
+        border-top: none;
+    }
+
+    td&-no-data {
+        height: 300px;
+        text-align: center;
+    }
+
+    // .@{class-prefix}-table-selected-row {
+    //     td {
+    //         background-color: @dux-gray-color-9;
+    //     }
+    // }
+
+    tr:hover {
+        td {
+            background-color: @dux-gray-color-8;
+        }
+
+        .@{class-prefix}-table-no-data {
+            background-color: transparent;
+        }
+    }
+
+    .@{class-prefix}-button,
+    .@{class-prefix}-link {
+        & + .@{class-prefix}-button,
+        & + .@{class-prefix}-link {
+            margin-left: 30px;
+        }
+    }
+
+    &-header {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    & &-column-center {
+        text-align: center;
+    }
+
+    & &-column-right {
+        text-align: right;
+        padding-right: 38px;
+    }
+
+    .@{class-prefix}-sorter {
+        margin-left: 5px;
+        font-size: @dux-font-size-small;
+    }
+    
+    & &-cell-expand {
+        padding: 0 0 0 10px;
+        text-align: center;
+    
+        & + th,
+        & + td {
+            padding-left: 10px;
+        }
+    }
+    
+    &-cell-expand {
+        button {
+            .size(1em);
+            background: none;
+            outline: none;
+            border: none;
+            padding: 0;
+            color: @dux-text-color-weak;
+            cursor: pointer;
+            vertical-align: middle;
+            .dux-button-transition();
+
+            &:hover,
+            &.focus-visible {
+                color: @dux-brand-color;
+            }
+
+            &:active {
+                color: @dux-brand-color-1;
+            }
+
+            .@{class-prefix}-icon {
+                display: block;
+            }
+        }
+    }
+    
+    &-sub-row {
+        td {
+            background-color: @dux-gray-color-8;
+        }
+
+        &:hover .@{class-prefix}-table-cell-expand {
+            background-color: #fff;
+        }
+    }
+    
+    &-sub-row &-cell-expand {
+        position: relative;
+        background-color: #fff;
+
+        &::before {
+            content: "";
+            .absolute(-1px, 0, _);
+            border-top: 1px solid #fff;
+        }
+    }
+
+    &[ui~="slim"] {
+        th,
+        td {
+            .dux-make-table-row-height(@dux-font-size-normal, 8px);
+        }
+    }
+
+    &[ui~="alt"] thead {
+        th, td {
+            background-color: @dux-gray-color-8;
+        }
+    }
+
+    &[ui~="bordered"] td {
+        border-style: solid;
+    
+        &:first-child {
+            border-left: none;
+        }
+    
+        &:last-child {
+            border-right: none;
+        }
+    }
+    &-expander {
+        // transition: transform @dux-transition-duration;
+    
+        &-collapse {
+            transform: rotateZ(90deg);
+        }
+    }
+}

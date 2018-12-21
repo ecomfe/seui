@@ -1,0 +1,257 @@
+<template>
+    <div>
+        <div class="demo-section">
+            <h3>一个完整的表单</h3>
+            <p>
+                可以通过 form 设置 rules 来传入整个表单的验证规则，传入的规则将和每个 form-item
+                上设置的规则组合成新的验证规则。<br/>
+                还可以通过 form 设置 labelWidth 来控制整个表单的标签宽度。但是 formItem 的 labelWidth 有更高的优先级
+
+            </p>
+            <div>{{validateFormFull.name}}</div>
+            <ui-form
+                labelPosition="right"
+                rules="{{rules}}"
+                formModel="{=validateFormFull=}"
+                san-ref="validateFormFull">
+                <ui-form-item
+                    prop="name"
+                    rules="{{nameRules}}"
+                    require="{{true}}"
+                    helpText="请输入用户名，长度为6-10个字符"
+                    label="用户名">
+                    <ui-input
+                        placeholder="请输入用户名"
+                        value="{=validateFormFull.name=}"
+                    ></ui-input>
+                </ui-form-item>
+                <!--ui-form-item
+                    prop="intro"
+                    require="{{true}}"
+                    label="简介">
+                    <ui-input
+                        type="textarea"
+                        placeholder="请输入您的简介"
+                        value="{=validateFormFull.intro=}"
+                    ></ui-input>
+                </ui-form-item>
+                <ui-form-item
+                    prop="age"
+                    require="{{true}}"
+                    helpText="请输入年龄"
+                    label="年龄">
+                    <ui-input-number
+                        min="{{0}}"
+                        max="{{200}}"
+                        value="{=validateFormFull.age=}"
+                    ></ui-input-number>
+                </ui-form-item>
+                <ui-form-item
+                    prop="fruit"
+                    require="{{true}}"
+                    helpText="选择你喜欢的水果"
+                    label="水果">
+                    <ui-checkbox-group
+                        items="{{items}}"
+                        value="{=validateFormFull.fruit=}"
+                    ></ui-checkbox-group>
+                </ui-form-item>
+                <ui-form-item
+                    prop="gender"
+                    require="{{true}}"
+                    helpText="请选择您的性别"
+                    label="性别">
+                    <ui-radio-group
+                        items="{{genderItems}}"
+                        value="{=validateFormFull.gender=}"
+                    ></ui-radio-group>
+                </ui-form-item>
+                <ui-form-item
+                    ui="small"
+                    prop="saveInfo"
+                    label="保存信息">
+                    <ui-switch
+                        ui="small"
+                        trueValue="yes"
+                        falseValue="no"
+                        checked="{=validateFormFull.saveInfo=}"
+                    ></ui-switch>
+                </ui-form-item>
+                <ui-form-item
+                    label="协议"
+                    prop="agreement">
+                    <ui-checkbox
+                        trueValue="yes"
+                        falseValue="no"
+                        checked="{=validateFormFull.agreement=}"
+                    >I have read the <a href="#">agreement</a></ui-checkbox>
+                </ui-form-item-->
+                <ui-form-item>
+                    <ui-button class="submit-button" on-click="submitForm('validateFormFull')" ui="primary small">提交</ui-button>
+                    <ui-button class="submit-button" on-click="resetForm('validateFormFull')" ui="primary small">重置</ui-button>
+                </ui-form-item>
+            </ui-form>
+        </div>
+    </div>
+</template>
+
+<script>
+import Form from '../../../src/components/Form';
+import FormItem from '../../../src/components/FormItem';
+import Checkbox from '../../../src/components/Checkbox';
+import CheckboxGroup from '../../../src/components/CheckboxGroup';
+import Input from '../../../src/components/Input';
+import InputNumber from '../../../src/components/InputNumber';
+import RadioGroup from '../../../src/components/RadioGroup';
+import Switch from '../../../src/components/Switch';
+import Button from '../../../src/components/Button';
+
+export default {
+    components:{
+        'ui-button': Button,
+        'ui-form': Form,
+        'ui-form-item': FormItem,
+        'ui-checkbox': Checkbox,
+        'ui-checkbox-group': CheckboxGroup,
+        'ui-input': Input,
+        'ui-input-number': InputNumber,
+        'ui-radio-group': RadioGroup,
+        'ui-switch': Switch
+    },
+    initData() {
+        return {
+            validateFormFull: {
+                fruit: [],
+                name: '',
+                age: 0,
+                gender: '',
+                agreement: '',
+                intro: ''
+            },
+            labelPosition: 'top',
+            itemLabelPosition: 'left',
+            nameRules: [
+                {   
+                    type: 'string',
+                    min: 7,
+                    message: '用户名需大于6个字符'
+                },
+                {
+                    max: 11,
+                    message: '用户名需小于12个字符'
+                }
+            ],
+            rules: {
+                name: [
+                    {
+                        type: 'string',
+                        min: 6,
+                        message: '用户名需大于5个字符'
+                    },
+                    {
+                        type: 'string',
+                        max: 10,
+                        message: '用户名需小于11个字符'
+                    }
+                ],
+                age: [
+                    {
+                        type: 'number',
+                        min: 0,
+                        max: 200,
+                        message: '年龄需在0~200之间'
+                    }
+                ],
+                agreement: [
+                    {
+                        validator: (rule, value, callback) => {
+                            if (value !== 'yes') {
+                                callback([new Error('请您阅读用户条款并同意!')]);
+                            }
+                            else {
+                                callback([]);
+                            }
+                        }
+                    }
+                ]
+            },
+            items: [
+                {
+                    value: '1',
+                    label: '苹果'
+                },
+                {
+                    value: '2',
+                    label: '梨'
+                },
+                {
+                    value: '3',
+                    label: '香蕉'
+                }
+            ],
+            genderItems: [
+                {
+                    value: '1',
+                    label: '男生'
+                },
+                {
+                    value: '2',
+                    label: '女生'
+                },
+                {
+                    value: '3',
+                    label: '其它'
+                }
+            ]
+        };
+    },
+    submitForm(formName) {
+        let formModel = this.data.get(formName);
+        if (formName === 'formModel') {
+            this.data.set('formStatus', 'validating');
+        }
+        this.ref(formName).validate((valid) => {
+            this.data.set('formStatus', 'validateEnd');
+            if (valid) {
+                // 验证成功 do someThing
+                console.log(formModel);
+            } else {
+                // 验证失败 do someThing
+                console.log(valid)
+            }
+        });
+    },
+    resetForm(formName) {
+        this.ref(formName).resetFields();
+    },
+    setFormValues() {
+        this.data.set('validateFormFull', {
+            fruit: ['1', '2'],
+            name: '王兵',
+            age: 100,
+            gender: '1',
+            agreement: 'yes',
+            intro: '啊啊啊啊',
+            saveInfo: 'yes'
+        });
+    },
+    changeLabelPosition() {
+        let labelPosition = this.data.get('labelPosition');
+        if (labelPosition === 'top') {
+            this.data.set('labelPosition', 'left');
+        }
+        else {
+            this.data.set('labelPosition', 'top');
+        }
+    },
+    changeItemLabelPosition() {
+        let itemLabelPosition = this.data.get('itemLabelPosition');
+        if (itemLabelPosition === 'top') {
+            this.data.set('itemLabelPosition', 'left');
+        }
+        else {
+            this.data.set('itemLabelPosition', 'top');
+        }
+    }
+}
+</script>

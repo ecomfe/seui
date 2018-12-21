@@ -1,0 +1,101 @@
+<template>
+    <div class="demo-section">
+        <h3>联合校验演示</h3>
+        <ui-form
+            formModel="{=formPasswordModel=}"
+            san-ref="formPasswordModel">
+            <ui-form-item
+                rules="{{passwordRules}}"
+                prop="password"
+                require="{{true}}"
+                helpText="请输入密码，长度为6-10个字符"
+                label="密码">
+                <ui-input
+                    type="password"
+                    value="{=formPasswordModel.password=}"
+                ></ui-input>
+            </ui-form-item>
+            <ui-form-item
+                rules="{{passwordAginRules}}"
+                prop="passwordAgain"
+                require="{{true}}"
+                helpText="请确认密码"
+                label="再次输入密码">
+                <ui-input
+                    type="password"
+                    value="{=formPasswordModel.passwordAgain=}"
+                ></ui-input>
+            </ui-form-item>
+            <ui-form-item>
+                <ui-button class="submit-button" on-click="submitForm('formPasswordModel')" ui="primary small">提交</ui-button>
+                <ui-button class="submit-button" on-click="resetForm('formPasswordModel')" ui="primary small">重置</ui-button>
+            </ui-form-item>
+        </ui-form>
+    </div>
+</template>
+
+<script>
+import Form from '../../../src/components/Form';
+import FormItem from '../../../src/components/FormItem';
+import Input from '../../../src/components/Input';
+import Button from '../../../src/components/Button';
+
+export default {
+    components:{
+        'ui-button': Button,
+        'ui-form': Form,
+        'ui-form-item': FormItem,
+        'ui-input': Input
+    },
+    initData() {
+        const passwordValidator = (rule, value, callback) => {
+            this.ref('formPasswordModel').validateField('passwordAgain');
+            callback([]);
+        };
+        const passwordAgainValidator = (rule, value, callback) => {
+            let password = this.data.get('formPasswordModel.password');
+            if (value !== password) {
+                callback([new Error('两次输入的密码不一致!')]);
+            }
+            else {
+                callback([]);
+            }
+        };
+        return {
+            formPasswordModel: {
+                password: '',
+                passwordAgain: ''
+            },
+            passwordRules: [
+                {
+                    validator: passwordValidator
+                }
+            ],
+            passwordAginRules: [
+                {
+                    validator: passwordAgainValidator
+                }
+            ]
+        };
+    },
+    submitForm(formName) {
+        let formModel = this.data.get(formName);
+        if (formName === 'formModel') {
+            this.data.set('formStatus', 'validating');
+        }
+        this.ref(formName).validate((valid) => {
+            this.data.set('formStatus', 'validateEnd');
+            if (valid) {
+                // 验证成功 do someThing
+                console.log(formModel);
+            } else {
+                // 验证失败 do someThing
+                console.log(valid)
+            }
+        });
+    },
+    resetForm(formName) {
+        this.ref(formName).resetFields();
+    }
+}
+</script>

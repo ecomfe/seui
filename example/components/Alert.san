@@ -1,0 +1,55 @@
+<template>
+    <div class="demo-alert">
+        <ui-alert type="success" message="恭喜你，你的请求已成功处理" closable on-close="close"></ui-alert>
+        <ui-alert class="limit-width" type="success" message="恭喜你，你的请求已成功处理" closable on-close="close"></ui-alert>
+        <ui-alert type="warning" message="警告，进行检查，有风险信息存在" closable on-close="close"></ui-alert>
+        <ui-alert class="limit-width" type="warning" message="{{messages}}" closable on-close="close"></ui-alert>
+        <ui-alert type="info" message="提醒，这个消息需要注意" closable on-close="close"></ui-alert>
+        <ui-alert class="limit-width" type="info" message="提醒，这个消息需要注意" closable on-close="close" close-label="不再提示"></ui-alert>
+        <ui-alert type="error" message="错误，请检查并修改后再进行操作" closable on-close="close"></ui-alert>
+        <ui-alert class="limit-width" type="error" message="错误，请检查并修改后再进行操作" closable on-close="close"></ui-alert>
+    </div>
+</template>
+<script>
+    import Alert from '../../src/components/Alert';
+
+    export default {
+        initData() {
+            return {
+                messages: [
+                    '我是消息1我是消息1我是消息1我是消息1',
+                    '我是消息2',
+                    '我是消息3',
+                    '我是消息4',
+                    '我是消息5'
+                ]
+            };
+        },
+
+        components: {
+            'ui-alert': Alert
+        },
+
+        attached() {
+        },
+
+        close() {
+            console.log('closed');
+        }
+    }
+</script>
+<style lang="less">
+    .demo-alert {
+        p {
+            margin-top: 16px;
+        }
+        .dux-alert {
+            margin: 30px 0;
+        }
+    }
+    .limit-width {
+        .dux-alert {
+            width: 350px;
+        }
+    }
+</style>

@@ -1,0 +1,142 @@
+<template>
+    <div>
+        <p>
+            <dux-radio-group
+                items="{{items}}"
+                value="{=groupValue=}"
+            ></dux-radio-group>
+            <span>{{groupValueJson}}</span>
+        </p>
+        <p>
+            <dux-radio-group
+                items="{{items1}}"
+                value="{=groupValue1=}"
+            ></dux-radio-group>
+            <span>{{groupValue1}}</span>
+        </p>
+        <p>
+            <dux-radio-group
+                items="{{items}}"
+                value="{=groupValue=}"
+            ></dux-radio-group>
+            <span>{{groupValueJson}}</span>
+        </p>
+        <p>
+            <dux-radio-group
+                items="{{items}}"
+                value="{=groupValueAll=}"
+            ></dux-radio-group>
+            <span>{{groupValueAllJson}}</span>
+        </p>
+        <p>
+            <dux-radio-group
+                items="{{itemsWithDisabled}}"
+                value="{=groupValueDisabled=}"
+            ></dux-radio-group>
+            <span>{{groupValueJsonDisabled}}</span>
+        </p>
+        <p>
+            <dux-radio-group
+                items="{{itemsWithDisabled}}"
+                allLabel="选择全部"
+                value="{=groupValueDisabled=}"
+            ></dux-radio-group>
+            <span>{{groupValueJsonDisabled}}</span>
+        </p>
+        <p>
+            <dux-radio-group
+                items="{{itemsWithDisabled}}"
+                allLabel="选择全部"
+                value="{=groupValueAllDisabled=}"
+            ></dux-radio-group>
+            <span>{{groupValueAllJsonDisabled}}</span>
+        </p>
+        <p>
+            <dux-radio-group
+                ui="small"
+                items="{{itemsWithDisabled}}"
+                allLabel="选择全部"
+                value="{=groupValueAllDisabled=}"
+            ></dux-radio-group>
+            <span>{{groupValueAllJsonDisabled}}</span>
+        </p>
+    </div>
+</template>
+
+<script>
+import RadioGroup from '../../src/components/RadioGroup';
+export default {
+    components:{
+       'dux-radio-group':RadioGroup
+    },
+    computed: {
+        groupValueJson() {
+            let groupValue = this.data.get('groupValue');
+            return JSON.stringify(groupValue);
+        },
+        groupValueAllJson() {
+            let groupValue = this.data.get('groupValueAll');
+            return JSON.stringify(groupValue);
+        },
+        groupValueJsonDisabled() {
+            let groupValue = this.data.get('groupValueDisabled');
+            return JSON.stringify(groupValue);
+        },
+        groupValueAllJsonDisabled() {
+            let groupValue = this.data.get('groupValueAllDisabled');
+            return JSON.stringify(groupValue);
+        }
+    },
+    initData() {
+        return {
+            items1: [
+                {
+                    value: 1,
+                    label: '一'
+                },
+                {
+                    value: 2,
+                    label: '二'
+                },
+                {
+                    value: 3,
+                    label: '三'
+                }
+            ],
+            items: [
+                {
+                    value: '1',
+                    label: '一'
+                },
+                {
+                    value: '2',
+                    label: '二'
+                },
+                {
+                    value: '3',
+                    label: '三'
+                }
+            ],
+            itemsWithDisabled: [
+                {
+                    value: '1',
+                    label: '一',
+                    disabled: true
+                },
+                {
+                    value: '2',
+                    label: '二'
+                },
+                {
+                    value: '3',
+                    label: '三'
+                }
+            ],
+            groupValue: '1',
+            groupValueAll: '2',
+            groupValueDisabled: '3',
+            groupValueAllDisabled: '2'
+        };
+    }
+}
+</script>

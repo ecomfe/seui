@@ -1,0 +1,110 @@
+@import (reference) "../../style/lib.less";
+@import (reference) "../../style/input.less";
+
+.@{class-prefix}-textarea {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    width: 300px;
+    padding: 0;
+    border: 1px solid @dux-gray-color-5;
+    font-size: @dux-font-size-normal;
+    line-height: @dux-height-normal;
+    color: @dux-text-color-normal;
+    background-color: @dux-gray-color-7;
+    transition: border-color .2s, color .2s;
+
+    .@{class-prefix}-field-invalid & {
+        &:extend(._dux-input-invalid all);
+    }
+
+    &:hover,
+    &-focused {
+        border-color: @dux-gray-color-3;
+    }
+
+    &-focused {
+        color: @dux-text-color-strong;
+    }
+
+    &-input,
+    &-measurer {
+        font: inherit;
+    }
+
+    &-input {
+        position: relative;
+        z-index: 1;
+        float: right;
+        width: 100%;
+        height: 150px;
+        padding: 0 10px;
+        border: none;
+        outline: none;
+        background-color: #fff;
+        resize: none;
+    }
+
+    &-rows &-input {
+        height: auto;
+    }
+
+    &-measurer + &-input {
+        max-width: ~"calc(100% - @{dux-height-normal})";
+    }
+
+    &-measurer {
+        overflow: auto;
+        word-wrap: break-word;
+        color: @dux-text-color-weak;
+
+        .absolute(0, 0, _, 0);
+
+        &-line {
+            overflow: hidden;
+
+            &-number {
+                float: left;
+                min-width: @dux-height-normal;
+                text-align: center;
+            }
+
+            &-content {
+                visibility: hidden;
+                overflow: hidden;
+
+                .padding(_, 10px);
+            }
+        }
+    }
+
+    &[ui~="small"] {
+        font-size: @dux-font-size-small;
+        line-height: @dux-height-small;
+    }
+
+    &[ui~="large"] {
+        font-size: @dux-font-size-large;
+        line-height: @dux-height-large;
+    }
+
+    &.dux-readonly,
+    &.dux-disabled {
+        &,
+        &:hover {
+            border-color: @dux-gray-color-5;
+            color: @dux-text-color-weak;
+        }
+
+        & .dux-textarea-input {
+            background-color: @dux-gray-color-8;
+        }
+    }
+
+    &.dux-disabled {
+        &,
+        & .dux-textarea-input {
+            cursor: not-allowed;
+        }
+    }
+}

@@ -1,0 +1,162 @@
+<template>
+    <div class="demo-section">
+        <h3>Form,FormItem自动校验、异步校验、表单验证状态演示</h3>
+        <h4>表单验证相关API调用说明</h4>
+        <ul>
+            <li>每一个FormItem组件都有自己的validate方法，而Form组件的validate就是挨个调用FormItem的validate方法</li>
+            <li>Form组件的validate方法返回的是一个Promise，如果返回值是true，那么说明校验成功，如果返回值是一个数组，那么校验失败，数组内是校验后的信息</li>
+            <li>如果一个FormItem配置有多个规则的话，那么遇到第一个不满足的规则就会返回</li>
+        </ul>
+        <ui-form
+            formModel="{=formModel=}"
+            san-ref="formModel">
+            <ui-form-item
+                prop="checkboxValue"
+                require="{{true}}"
+                helpText="通过设置require属性"
+                label="复选必填项">
+                <ui-checkbox-group
+                    showAll="{{true}}"
+                    items="{{items}}"
+                    value="{=formModel.checkboxValue=}"
+                ></ui-checkbox-group>
+            </ui-form-item>
+            <ui-form-item
+                rules="{{rules1}}"
+                prop="checkboxValue1"
+                helpText="通过自定义规则"
+                label="复选必填项">
+                <ui-checkbox-group
+                    showAll="{{true}}"
+                    items="{{items}}"
+                    value="{=formModel.checkboxValue1=}"
+                ></ui-checkbox-group>
+            </ui-form-item>
+            <ui-form-item
+                rules="{{rules2}}"
+                prop="checkboxValue2"
+                helpText="必须选择两个以上的值，通过自定义函数异步验证，验证时间3s"
+                label="复选">
+                <ui-checkbox-group
+                    items="{{items}}"
+                    value="{=formModel.checkboxValue2=}"
+                ></ui-checkbox-group>
+            </ui-form-item>
+            <ui-form-item
+                rules="{{rules3}}"
+                prop="checkboxValue3"
+                helpText="必须选择两个以上的值，通过自定义函数异步验证，验证时间1s"
+                label="复选">
+                <ui-checkbox-group
+                    showAll="{{true}}"
+                    items="{{items}}"
+                    value="{=formModel.checkboxValue3=}"
+                ></ui-checkbox-group>
+            </ui-form-item>
+            <ui-form-item>
+                <ui-button class="submit-button" on-click="submitForm('formModel')" ui="primary small">提交</ui-button>
+                {{formStatus}}
+                <ui-button class="submit-button" on-click="resetForm('formModel')" ui="primary small">重置</ui-button>
+                （目前有一个问题，因为有异步验证，在验证状态不能重置表单）
+            </ui-form-item>
+        </ui-form>
+    </div>
+</template>
+
+<script>
+import Form from '../../../src/components/Form';
+import FormItem from '../../../src/components/FormItem';
+import CheckboxGroup from '../../../src/components/CheckboxGroup';
+import Button from '../../../src/components/Button';
+export default {
+    components:{
+        'ui-button': Button,
+        'ui-form': Form,
+        'ui-form-item': FormItem,
+        'ui-checkbox-group': CheckboxGroup
+    },
+    initData() {
+        return {
+            formModel: {
+                checkboxValue: [],
+                checkboxValue1: [],
+                checkboxValue2: [],
+                checkboxValue3: []
+            },
+            rules1: [
+                {
+                    required: true,
+                    message: '必选'
+                }
+            ],
+            rules2: [
+                {
+                    triggers: 'change',
+                    validator(rule, value, callback) {
+                        if (!value || value.length <= 2) {
+                            setTimeout(function() {
+                                callback([new Error('请选择两个以上的值!')]);
+                            }, 3000);
+                        }
+                        else {
+                            setTimeout(function() {
+                                callback([]);
+                            }, 3000);
+                        }
+                    }
+                }
+            ],
+            rules3: [
+                {
+                    triggers: 'change',
+                    validator(rule, value, callback) {
+                        if (!value || value.length <= 2) {
+                            setTimeout(function() {
+                                callback([new Error('请选择两个以上的值!')]);
+                            }, 1000);
+                        }
+                        else {
+                            setTimeout(function() {
+                                callback([]);
+                            }, 1000);
+                        }
+                    }
+                }
+            ],
+            items: [
+                {
+                    value: '1',
+                    label: '苹果'
+                },
+                {
+                    value: '2',
+                    label: '梨'
+                },
+                {
+                    value: '3',
+                    label: '香蕉'
+                }
+            ]
+        };
+    },
+    submitForm(formName) {
+        let formModel = this.data.get(formName);
+        if (formName === 'formModel') {
+            this.data.set('formStatus', 'validating');
+        }
+        this.ref(formName).validate().then(valid => {
+            this.data.set('formStatus', 'validateEnd');
+            if (valid === true) {
+                // 验证成功 do someThing
+                console.log(formModel);
+            } else {
+                // 验证失败 do someThing
+                console.log(valid);
+            }
+        });
+    },
+    resetForm(formName) {
+        this.ref(formName).resetFields();
+    }
+}
+</script>

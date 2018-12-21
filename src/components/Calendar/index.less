@@ -1,0 +1,242 @@
+@import (reference) "../../style/lib.less";
+
+.@{class-prefix}-calendar {
+    display: inline-block;
+    overflow: hidden;
+    border: 1px solid @dux-gray-color-6;
+    background-color: #fff;
+    outline: none;
+
+    button {
+        .dux-button-transition();
+    }
+
+    &-panel {
+        display: inline-block;
+        position: relative;
+
+        & + & {
+            .@{class-prefix}-calendar-head {
+                margin-left: 1px;
+            }
+
+            .@{class-prefix}-calendar-body {
+                border-left: 1px solid #fff;
+            }
+        }
+
+        &::before {
+            content: "";
+            .absolute(36px, 0, _, 0);
+            height: 0;
+            border-bottom: 1px solid @dux-gray-color-6;
+        }
+    }
+
+    &-days + &-months,
+    &-days + &-years,
+    &-months + &-days,
+    &-years + &-days {
+        .@{class-prefix}-calendar-body {
+            border-color: @dux-gray-color-6;
+        }
+    }
+
+    &-body {
+        border-collapse: collapse;
+        table-layout: fixed;
+        padding-bottom: 5px;
+
+        button {
+            position: relative;
+            width: 100%;
+            height: 36px;
+            margin-top: 1px;
+            border: none;
+            padding: 0;
+            background-color: #fff;
+            color: @dux-text-color-normal;
+            text-align: center;
+            outline: none;
+
+            &:hover,
+            &.focus-visible {
+                background-color: @dux-brand-color-10;
+                color: @dux-text-color-strong;
+            }
+
+            &:active {
+                background-color: @dux-brand-color-9;
+            }
+
+            &:disabled {
+                &,
+                &:hover {
+                    background-color: #fff;
+                    color: @dux-text-color-aux;
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+
+    th {
+        .size(36px, 34px);
+        background-color: @dux-gray-color-8;
+        color: @dux-text-color-weak;
+        font-weight: @dux-font-weight-normal;
+    }
+
+    td {
+        position: relative;
+        .size(36px);
+        padding: 0;
+        color: @dux-text-color-normal;
+    }
+
+    th,
+    td {
+        text-align: center;
+    }
+
+    &-aux {
+        button {
+            color: @dux-text-color-aux;
+        }
+    }
+
+    &-today {
+        button {
+            color: @dux-brand-color;
+            font-weight: @dux-font-weight-extra-bold;
+        }
+    }
+
+    &-selected,
+    &-in-range {
+        button {
+            background-color: @dux-brand-color-8;
+
+            &:hover,
+            &.focus-visible {
+                background-color: @dux-brand-color-7;
+            }
+
+            &:active {
+                background-color: @dux-brand-color-6;
+            }
+        }
+    }
+
+    &-select {
+        b {
+            float: left;
+        }
+    }
+
+    &-head {
+        border-bottom: 1px solid @dux-gray-color-6;
+        text-align: center;
+        color: @dux-text-color-normal;
+        .clearfix();
+
+        button {
+            .centered-line(36px);
+            background: none;
+            border: none;
+            padding: 0 7px;
+            outline: none;
+            cursor: pointer;
+
+            .@{class-prefix}-icon {
+                margin-top: ~"calc(18px - .5em)";
+                width: 16px;
+                vertical-align: top;
+                color: @dux-text-color-weak;
+            }
+
+            &:hover,
+            &.focus-visible {
+                background-color: @dux-gray-color-8;
+                color: @dux-text-color-strong;
+
+                .@{class-prefix}-icon {
+                    color: inherit;
+                }
+            }
+
+            &:active {
+                background-color: @dux-gray-color-6;
+                color: @dux-text-color-normal;
+
+                .dux-icon {
+                    color: inherit;
+                }
+            }
+
+            &:disabled {
+                &,
+                &:hover {
+                    color: @dux-text-color-aux;
+                    background: transparent;
+                    cursor: not-allowed;
+                }
+
+                .@{class-prefix}-icon {
+                    color: inherit;
+                }
+            }
+        }
+    }
+
+    &-label {
+        line-height: 36px;
+        color: @dux-text-color-strong;
+    }
+
+    &-prev,
+    &-next {
+        width: 36px;
+    }
+
+    &-prev {
+        float: left;
+    }
+
+    &-next {
+        float: right;
+    }
+
+    &-days {
+        th,
+        td {
+            &:first-child {
+                padding-left: 5px;
+            }
+
+            &:last-child {
+                padding-right: 5px;
+            }
+
+            &:first-child,
+            &:last-child {
+                width: 41px;
+            }
+        }
+    }
+
+    &-months,
+    &-years {
+        td {
+            .size(60px, 65px);
+
+            button {
+                .size(54px);
+            }
+        }
+
+        .@{class-prefix}-calendar-body {
+            padding: 9px 11px 20px;
+        }
+    }
+}

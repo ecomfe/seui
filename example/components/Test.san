@@ -1,0 +1,158 @@
+<template>
+    <div class="demo-tree">
+        <section>
+            <h3>点击左侧图标展开收起</h3>
+            <ui-tree
+                sortby="{{sortBy}}"
+                datasource="{{data}}">
+            </ui-tree>
+            <button on-click="test()">测试</button>
+        </section>
+    </div>
+</template>
+
+<script>
+import {connect, store} from 'san-store';
+import {updateBuilder} from 'san-update';
+import Tree from '../../src/components/Tree';
+
+const TREE_FIELD = 'contentcms/tree';
+const TREE_ACTION_FILL = 'contentcms/tree/fill';
+const TREE_ACTION_UPDATE = 'contentcms/tree/update';
+
+store.addAction(TREE_ACTION_FILL, function (data) {
+    return updateBuilder().set(TREE_FIELD, data);
+});
+
+store.addAction(TREE_ACTION_UPDATE, function ({field, value}) {
+    return updateBuilder().push(`${TREE_FIELD}${field}`, value);
+});
+
+export default connect.san({
+    data: TREE_FIELD
+}, {
+    fillData: TREE_ACTION_FILL,
+    update: TREE_ACTION_UPDATE
+})({
+    components: {
+        'ui-tree': Tree
+    },
+
+    initData() {
+        return {
+
+            defaultExpandAll: true,
+
+            expands1: ['1', '1-1'],
+
+            expands2: ['1-1-3'],
+
+            expands3: ['1'],
+
+            checkedKeys: [],
+
+            filterMethod: function (node, val) {
+                return node.label.indexOf(val) > -1;
+            },
+
+            sortBy(a, b) {
+                return a.value - b.value;
+            }
+        }
+    },
+
+    computed: {
+        treeData() {
+            return this.data.get('data');
+        }
+    },
+
+    filters: {
+        toString(arr = []) {
+            return arr.join(', ');
+        }
+    },
+
+    inited() {
+        const data = [
+            {
+                label: '一级1',
+                value: '1',
+                children: [
+                    {
+                        label: '二级1-1',
+                        value: '1-1',
+                        children: [
+                            {label: '6', value: 6},
+                            {label: '4', value: 4},
+                            {label: '5', value: 5}
+                        ]
+                    },
+                    {
+                        label: '二级1-2',
+                        value: '1-2',
+                        children: [
+                            {label: '三级1-2-1', value: '1-2-1'}
+                        ]
+                    }
+                ]
+            },
+            {
+                label: '一级2',
+                value: '2'
+            },
+            {
+                label: '一级3',
+                value: '3'
+            }
+        ];
+
+        this.actions.fillData(data);
+    },
+
+    attached () {
+        this.watch('data', val => {
+            console.log(val);
+            // console.log(this.data.get('data[0].children[0].children[0].value'));
+        });
+
+        this.watch('[0].children[0].children[1]', val => {
+            console.log('siblings');
+        });
+    },
+
+    test() {
+        console.log(this.data.get('data[0].children[0]'));
+        // this.data.set('data[0].children[0].value', 33);
+        this.actions.update({
+            field: '[0].children[0].children',
+            value: {label: '1', value: 1}
+        });
+    },
+
+    handleExpand(args) {
+        console.log('selected: ');
+        console.log(args);
+    },
+
+    handleCheck(args) {
+        console.log('checked: ');
+        console.log(args);
+    },
+
+    disposed() {}
+});
+</script>
+
+<style lang="stylus">
+    .demo-tree
+        section
+            margin-top: 30px;
+            padding: 0 20px 10px;
+            max-width: 800px;
+            border: 1px solid #eee;
+
+        .filter-node-section
+            min-height: 600px;
+
+</style>

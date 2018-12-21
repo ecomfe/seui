@@ -1,0 +1,447 @@
+<template>
+    <div>
+        <div class="demo-select">
+            <p>
+                <h2>默认样式</h2>
+                <ui-select overlayClass="test" options="{{options}}" value="{{defaultValue}}" placeholder="全部" clearable></ui-select>
+            </p>
+            <p>
+                <h2>显示已选图标样式</h2>
+                <ui-select options="{{options}}" ui="checkmark"></ui-select>
+            </p>
+            <p>
+                <h2>禁用样式</h2>
+                <ui-select options="{{options}}" value="{=defaultValue1=}" disabled></ui-select>
+            </p>
+            <p>
+                <h2>Slot[name=option-label] 样式：</h2>
+                <ui-select options="{{options}}" value="{=defaultValue2=}">
+                    <span slot="option-label" class="dux-option-custom-label">{{option.label}}</span>
+                </ui-select>
+            </p>
+            <p>
+                <h2>Slot样式2：</h2>
+                <ui-select options="{{options}}" value="{=defaultValue3=}">
+                    <template slot="option">
+                        <span class="dux-option-label-text">{{option.label}}</span>
+                        <ui-icon name="qrcode"></ui-icon>
+                    </template>
+                </ui-select>
+            </p>
+            <p>
+                <h2>Slot样式3：</h2>
+                <ui-select options="{{options}}" value="{=defaultValue4=}">
+                    <template slot="option">
+                        <ui-radio checked="{{option.selected}}">{{option.label}}</ui-radio>
+                    </template>
+                </ui-select>
+            </p>
+        </div>
+        <div>
+            <p>
+                <h2>异步获得数据1：</h2>
+                <ui-select value="{{1}}">
+                    <ui-option-group label="{{'互联网'}}" position="{{'popup'}}">
+                        <ui-option s-for="item in asyncArray" value="{{item.value}}" label="{{item.label}}"/>
+                    </ui-option-group>
+                </ui-select>
+            </p>
+            <p>
+                <h2>异步获得数据2：</h2>
+                <h3>changePath1: {{changePath1}}</h3>
+                <ui-select value="{=value=}" changePath="{=changePath1=}" options="{{asyncOptions}}">
+                    <template slot="label">{{label | showChangePath(changePath1)}}</template>
+                </ui-select>
+            </p>
+            <p>
+                <h2>内联（级联）样式：</h2>
+                <h3>选择的路径：{{changePath}}</h3>
+                <ui-select value="{=defaultValue6=}" changePath="{=changePath=}">
+                    <ui-option-group s-for="item in testArray" label="{{'中国'}}" position="{{'popup'}}">
+                        <ui-option-group label="{{'互联网'}}" position="{{'popup'}}">
+                            <ui-option s-for="item in testArray" value="{{'baidu'}}" label="{{'百度'}}"/>
+                            <ui-option value="{{'alibaba'}}" label="{{'阿里巴巴'}}"/>
+                            <ui-option value="{{'tencent'}}" label="{{'腾讯'}}"/>
+                        </ui-option-group>
+                        <ui-option-group label="{{'通信'}}" position="{{'popup'}}">
+                            <ui-option value="{{'telecom'}}" label="{{'中国电信'}}"/>
+                            <ui-option value="{{'mobile'}}" label="{{'中国移动'}}"/>
+                        </ui-option-group>
+                    </ui-option-group>
+                    <template>
+                        <ui-option-group s-if="true" label="{{'美国'}}" position="{{'popup'}}">
+                            <ui-option-group label="{{'互联网'}}" position="{{'popup'}}">
+                                <ui-option value="{{'google'}}" label="{{'Google'}}"/>
+                                <ui-option value="{{'facebook'}}" label="{{'Facebook'}}"/>
+                                <ui-option value="{{'twitter'}}" label="{{'Twitter'}}"/>
+                            </ui-option-group>
+                            <ui-option-group label="{{'通信'}}" position="{{'popup'}}">
+                                <ui-option value="{{'atnt'}}" label="{{'AT&T'}}"/>
+                                <ui-option value="{{'verizon'}}" label="{{'Verizon'}}"/>
+                            </ui-option-group>
+                        </ui-option-group>
+                    </template>
+                </ui-select>
+            </p>
+            <p>
+                <h2>默认分组样式：{{defaultValue7}}</h2>
+                <ui-select options="{{optGroupAttrs.options}}" value="{=defaultValue7=}"></ui-select>
+            </p>
+            <p>
+                <h2>显示已选图标分组样式：{{defaultValue1}}</h2>
+                <ui-select options="{{optGroupAttrs.options}}" ui="checkmark" value="{=defaultValue1=}"></ui-select>
+            </p>
+            <p>
+                <h2>slot分组样式1：{{defaultValue2}}</h2>
+                <ui-select options="{{optGroupAttrs.options}}" value="{=defaultValue2=}">
+                    <template slot="option">
+                        <div class="dux-option-custom">{{option.label}}</div>
+                    </template>
+                </ui-select>
+            </p>
+            <p>
+                <h2>slot分组样式2[name=option]：</h2>
+                <ui-select options="{{optGroupAttrs.options}}" value="{=defaultValue3=}">
+                    <template slot="option">
+                        <span class="dux-option-label-text dux-option-custom-label">{{option.label}}</span>
+                        <ui-icon name="money"></ui-icon>
+                    </template>
+                </ui-select>
+            </p>
+            <p>
+                <h2>分割线样式</h2>
+                <ui-select clearable options="{{groupedOpts}}" value="{=defaultValue8=}"></ui-select>
+            </p>
+            <p>
+                <h2>内联样式 3：</h2>
+                <ui-select value="{=defaultValue5=}" clearable>
+                    <ui-option-group label="{{'字母'}}">
+                        <ui-option value="{{'A'}}" label="{{'选项 A'}}"></ui-option>
+                        <ui-option value="{{'B'}}" label="{{'选项 B'}}"></ui-option>
+                        <ui-option value="{{'C'}}" label="{{'选项 C'}}"></ui-option>
+                    </ui-option-group>
+                    <ui-option-group label="{{'数字'}}">
+                        <ui-option value="{{1}}" label="{{'选项 1'}}"></ui-option>
+                        <ui-option value="{{2}}" label="{{'选项 2'}}"></ui-option>
+                        <ui-option value="{{3}}" label="{{'选项 3'}}"></ui-option>
+                    </ui-option-group>
+                </ui-select>
+            </p>
+        </div>
+    </div>
+</template>
+<script>
+import Button from '../../src/components/Button';
+import Select from '../../src/components/Select';
+import Radio from '../../src/components/Radio';
+import Icon from '../../src/components/Icon';
+import Option from '../../src/components/Select/Option';
+import OptionGroup from '../../src/components/Select/OptionGroup';
+
+export default {
+    trimWhitespace: 'all',
+    initData() {
+        return {
+            name: 'test',
+            defaultValue: null,
+            defaultValue1: null,
+            defaultValue2: null,
+            defaultValue3: null,
+            defaultValue6: 'baidu',
+            testArray: [{}],
+            options: [
+                {
+                    label: '下拉选项1',
+                    value: 1
+                },
+                {
+                    label: '下拉选项下拉选项下拉选项22',
+                    value: 2
+                },
+                {
+                    label: '下拉选项3',
+                    value: 3
+                },
+                {
+                    label: '下拉选项4',
+                    value: 4
+                }
+            ],
+            optGroupAttrs: {
+                ui: 'aux',
+                name: 'name',
+                readonly: false,
+                disabled: false,
+                clearable: true,
+                options: [
+                    {
+                        label: '下拉选项1',
+                        position: 'popup',
+                        options: [
+                            {
+                                label: '子选项1',
+                                value: '1-1'
+                            },
+                            {
+                                label: '子选项子选项子选项子选项子选项子选项2',
+                                value: '1-2'
+                            },
+                            {
+                                label: '子选项3',
+                                value: '1-3'
+                            }
+                        ]
+                    },
+                    {
+                        label: '下拉选项下拉选项下拉选项2',
+                        options: [
+                            {
+                                label: '子选项1',
+                                value: '2-1'
+                            },
+                            {
+                                label: '子选项2',
+                                value: '2-2'
+                            },
+                            {
+                                label: '子选项子选项子选项子选项子选项子选项3',
+                                value: '2-3'
+                            }
+                        ]
+                    },
+                    {
+                        label: '下拉选项3',
+                        options: [
+                            {
+                                label: '子选项1',
+                                value: '3-1'
+                            },
+                            {
+                                label: '子选项2',
+                                value: '3-2'
+                            },
+                            {
+                                label: '子选项子选项子选项子选项子选项子选项3',
+                                value: '3-3'
+                            }
+                        ]
+                    },
+                    {
+                        label: '下拉选项4',
+                        options: [
+                            {
+                                label: '子选项子选项子选项子选项子选项子选项1',
+                                value: '4-1'
+                            },
+                            {
+                                label: '子选项2',
+                                value: '4-2'
+                            },
+                            {
+                                label: '子选项3',
+                                value: '4-3'
+                            }
+                        ]
+                    }
+                ]
+            },
+            groupedOpts: [
+                {
+                    position: 'popup',
+                    options: [
+                        {
+                            label: '子选项1',
+                            value: '1-1'
+                        },
+                        {
+                            label: '子选项子选项子选项子选项子选项子选项2',
+                            value: '1-2'
+                        },
+                        {
+                            label: '子选项3',
+                            value: '1-3'
+                        }
+                    ]
+                },
+                {
+                    options: [
+                        {
+                            label: '子选项1',
+                            value: '2-1'
+                        },
+                        {
+                            label: '子选项2',
+                            value: '2-2'
+                        },
+                        {
+                            label: '子选项子选项子选项子选项子选项子选项3',
+                            value: '2-3'
+                        }
+                    ]
+                },
+                {
+                    options: [
+                        {
+                            label: '子选项1',
+                            value: '3-1'
+                        },
+                        {
+                            label: '子选项2',
+                            value: '3-2'
+                        },
+                        {
+                            label: '子选项子选项子选项子选项子选项子选项3',
+                            value: '3-3'
+                        }
+                    ]
+                },
+                {
+                    options: [
+                        {
+                            label: '子选项子选项子选项子选项子选项子选项1',
+                            value: '4-1'
+                        },
+                        {
+                            label: '子选项2',
+                            value: '4-2'
+                        },
+                        {
+                            label: '子选项3',
+                            value: '4-3'
+                        }
+                    ]
+                }
+            ]
+        };
+    },
+
+    components: {
+        'ui-button': Button,
+        'ui-select': Select,
+        'ui-icon': Icon,
+        'ui-radio': Radio,
+        'ui-option': Option,
+        'ui-option-group': OptionGroup
+    },
+
+    filters: {
+        showChangePath(value, path) {
+            return path || value;
+        }
+    },
+
+    attached() {
+        setTimeout(() => {
+            // this.data.set('options', [
+            //     {
+            //         label: '下拉选项4',
+            //         value: 1
+            //     },
+            //     {
+            //         label: '下拉选项5',
+            //         value: 2
+            //     },
+            //     {
+            //         label: '下拉选项6',
+            //         value: 3
+            //     },
+            //     {
+            //         label: '下拉选项7',
+            //         value: 4
+            //     }
+            // ]);
+            this.data.set('asyncArray', [
+                {
+                    label: '鹈鹕',
+                    value: 1
+                },
+                {
+                    label: '掘金',
+                    value: 2
+                },
+                {
+                    label: '湖人',
+                    value: 3
+                },
+                {
+                    label: '火箭',
+                    value: 4
+                }
+            ]);
+            this.data.set('asyncOptions', [
+                {
+                    position: 'popup',
+                    label: '中国',
+                    options: [
+                        {
+                            position: 'popup',
+                            label: '互联网',
+                            options: [
+                                {
+                                    label: '百度',
+                                    value: 'baidu'
+                                },
+                                {
+                                    label: '腾讯',
+                                    value: 'tencent'
+                                },
+                                {
+                                    label: '阿里',
+                                    value: 'Alibaba'
+                                }
+                            ]
+                        },
+                        {
+                            position: 'popup',
+                            label: '通信',
+                            options: [
+                                {
+                                    label: '中国电信',
+                                    value: 'telecom'
+                                },
+                                {
+                                    label: '中国移动',
+                                    value: 'mobile'
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]);
+        }, 5000);
+    }
+}
+</script>
+<style lang="less">
+.demo-select {
+    p {
+        margin-top: 16px;
+    }
+}
+.dux-option-label {
+    &-text,
+    .dux-icon {
+        vertical-align: middle;
+    }
+
+    .dux-icon {
+        margin-left: 5px;
+    }
+}
+.dux-option-custom {
+    position: relative;
+    padding-left: 10px;
+
+    &::after {
+        content: "❤️";
+        position: absolute;
+        top: 50%;
+        left: -10px;
+        transform: translateY(-50%);
+    }
+
+    &-label {
+        color: rgb(80, 170, 39);
+    }
+}
+</style>
